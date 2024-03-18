@@ -1,0 +1,98 @@
+/* share.css */
+
+.share {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shareWrapper {
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.shareTop {
+  display: flex;
+  align-items: center;
+}
+
+.shareProfileImg {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.shareInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #f0f2f5;
+}
+
+.shareHr {
+  margin: 20px 0;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
+.shareBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* Added to ensure the file input takes full width */
+}
+
+.shareOptions {
+  display: flex;
+  align-items: center;
+}
+
+.shareOption {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.shareOption input[type="file"] {
+  display: none; /* Hide the default file input */
+}
+
+.fileInputWrapper {
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.fileInputWrapper:hover {
+  background-color: #e1e1e1;
+}
+
+.fileInputLabel {
+  margin-left: 8px;
+  font-size: 16px;
+  color: #333;
+}
+
+.shareButton {
+  border: none;
+  outline: none;
+  background-color: #2e81f4;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.shareButton:hover {
+  background-color: #1e63cb;
+}
