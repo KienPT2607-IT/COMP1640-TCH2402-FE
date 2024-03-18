@@ -1,8 +1,18 @@
 import React from "react";
 import './LoginForm.css';
 import { FaUser, FaLock } from "react-icons/fa";
+import axios from 'axios';
+import { userHistory } from "react-router-dom"
+import { useEffect } from 'react'
 
 const LoginForm = () => {
+    useEffect(() => {
+        axios.get("https://reqres.in/api/login").then(data => {
+            console.log(">>> check data axios: ", data)
+        })
+    }, []);
+
+
     return (
         <div className="wrapper">
             <form action="">
@@ -30,6 +40,6 @@ const LoginForm = () => {
             </form>
         </div>
     )
-}
+};
 
 export default LoginForm;
