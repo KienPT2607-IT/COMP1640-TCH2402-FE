@@ -1,7 +1,15 @@
 import React from "react";
 import './ForgotPassword.css';
-
+import axios from 'axios';
+import { useHistory } from "react-router-dom"
+import { useEffect } from 'react';
 const ForgotPassword = () => {
+    useEffect(() => {
+        axios.post("/users/forgot-password").then(data => {
+            console.log(">>> check data axios: ", data)
+        })
+    }, []);
+
     return (
         <div className="wrapper">
             <form action="">

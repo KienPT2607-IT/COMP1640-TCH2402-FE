@@ -1,45 +1,51 @@
-import React from "react";
-import './LoginForm.css';
-import { FaUser, FaLock } from "react-icons/fa";
+import React, { useState } from 'react';
 import axios from 'axios';
-import { userHistory } from "react-router-dom"
-import { useEffect } from 'react'
 
-const LoginForm = () => {
-    useEffect(() => {
-        axios.get("https://reqres.in/api/login").then(data => {
-            console.log(">>> check data axios: ", data)
-        })
-    }, []);
+function LoginForm() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
+  const handleLogin = async () => {
+    try {
+      // Gửi yêu cầu đăng nhập đến backend
+      const response = await axios.post('http://localhost:8000/users/login', {
+        email: email,
+        password: password
+      });
 
-    return (
-        <div className="wrapper">
-            <form action="">
-                <h1>COMP1640</h1>
-                <h6>Welcome Back, Please login to your account</h6>
-                <div className="input-box">
-                    <input type="text" placeholder="Username" required />
-                    <FaUser className="icon" />
-                </div>
-                <div className="input-box">
-                    <input type="password" placeholder="Password" required />
-                    <FaLock className="icon" />
-                </div>
+      // Kiểm tra xem token có được trả về từ backend không
+      if (response.data.token) {
+        // Lưu trữ token vào local storage để sử dụng trong các yêu cầu sau này
+        localStorage.setItem('token', response.data.token);
+        
+        // Chuyển hướng người dùng đến trang chính sau khi đăng nhập thành công
+        window.location.href = '/register'; // Thay đổi '/home' thành URL của trang chính của bạn
+      } else {
+        setErrorMessage('Token không hợp lệ.');
+      }
+    } catch (error) {
+      // Xử lý lỗi nếu có
+      console.error('Đã có lỗi xảy ra:', error);
+      setErrorMessage('Đã có lỗi xảy ra khi đăng nhập.');
+    }
+  };
 
-                <div className="remember-forgot">
-                    <label><input type="checkbox" />Remember me</label>
-                    <a href="/forgotPassword">Forgot password?</a>
-                </div>
-                <link rel="stylesheet" href="/home" />
-                <button type="submit">Login</button>
-
-                <div className="register-link">
-                    <p>Don't have account? <a href="/Register ">Register</a> </p>
-                </div>
-            </form>
-        </div>
-    )
-};
+  return (
+    <div>
+      <h2>Đăng nhập</h2>
+      <div>
+        <label>Email:</label>
+        <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+      </div>
+      <div>
+        <label>Mật khẩu:</label>
+        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      </div>
+      <button onClick={handleLogin}>Đăng nhập</button>
+      {errorMessage && <p>{errorMessage}</p>}
+    </div>
+  );
+}
 
 export default LoginForm;
