@@ -19,7 +19,7 @@ const TableDepartment = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/departments/view" style={{ textDecoration: "none" }}>
+            <Link to={`/departments/view/${params.row.id}`} style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
             <Link to={`/departments/edit/${params.row.id}`} style={{ textDecoration: "none" }}>

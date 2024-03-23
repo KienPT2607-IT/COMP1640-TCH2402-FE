@@ -33,7 +33,7 @@ export const campaignColumns = [
   export const campaignRows = [
     {
       id: 1,
-      name: "test",
+      name: "test 11",
       start: "12/21/2022 23:23",
       closure: "13/13/2023 24:24",
       final: "14/04/2024 24:25",
@@ -41,7 +41,7 @@ export const campaignColumns = [
     },
     {
         id: 2,
-        name: "test",
+        name: "test 22",
         start: "12/21/2022 23:23",
         closure: "13/13/2023 24:24",
         final: "14/04/2024 24:25",
@@ -50,7 +50,7 @@ export const campaignColumns = [
 
       {
         id: 3,
-        name: "test",
+        name: "test 33",
         start: "12/21/2022 23:23",
         closure: "13/13/2023 24:24",
         final: "14/04/2024 24:25",

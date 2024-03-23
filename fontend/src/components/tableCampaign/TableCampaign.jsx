@@ -19,7 +19,7 @@ const TableCampaign = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/campaigns/view" style={{ textDecoration: "none" }}>
+            <Link to={`/campaigns/view/${params.row.id}`} style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
             <Link to={`/campaigns/edit/${params.row.id}`} style={{ textDecoration: "none" }}>

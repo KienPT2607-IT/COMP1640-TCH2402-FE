@@ -3,7 +3,6 @@ import LoginForm from "./pages/LoginForm/LoginForm";
 import ChangePassWord from "./pages/ChangePassWord/ChangePassword";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import RegisterAccount from "./pages/RegisterAccount/RegisterAccount";
-
 import OtpForm from "./pages/OtpForm/OtpForm";
 import List from "./pages/list/List";
 import ListCampaign from "./pages/listCampaign/ListCampaign";
@@ -13,7 +12,7 @@ import Single from "./pages/single/Single";
 import Edit from "./pages/edit/Edit";
 import NewCampaign from "./pages/newCampaign/NewCampaign";
 import Detail from "./pages/viewDetail/Detail";
-
+import Event from "./pages/event/Event";
 import New from "./pages/new/New";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useContext } from "react";
@@ -22,6 +21,8 @@ import "./style/dark.css";
 import EditCampaign from "./pages/editCampaign/EditCampaign";
 import EditDepartment from "./pages/editDepartment/EditDepartment";
 import NewDepartment from "./pages/newDepartment/NewDepartment";
+import ViewDetailDepartment from "./pages/viewDetailDepartment/ViewDetailDepartment";
+import ViewDetailCampaign from "./pages/viewDetailCampaign/ViewDetailCampaign";
 function App() {
   const { darkMode } = useContext(DarkModeContext);
 
@@ -40,18 +41,27 @@ function App() {
               <Route index element={<Campaign />} />
               
             </Route>
+            <Route path="event">
+              <Route index element={<Event />} />
+              
+            </Route>
             <Route path="users">
               <Route index element={<List />} />
-              <Route path="view/:id" component={<Detail/>} />
-                <Route path="edit/:userId" element={<Edit />} />
+              <Route path="view/:userId" element={<Detail/>} />
+              <Route path="edit/:userId" element={<Edit />} />
               <Route
                 path="new"
                 element={<New />}
               />
             </Route>
+            <Route path="profile">
+            <Route index element={<Single />} />
+              </Route> 
+
             <Route path="campaigns">
               <Route index element={<ListCampaign />} />
               <Route path="edit/:id" element={<EditCampaign />} />
+              <Route path="view/:campaignId" element={<ViewDetailCampaign />} />
               <Route
                 path="newcampaign"
                 element={<NewCampaign />}
@@ -59,6 +69,7 @@ function App() {
             </Route>
             <Route path="departments">
               <Route index element={<ListDepartment />} />
+              <Route path="view/:departmentId" element={<ViewDetailDepartment />} />
               <Route path="edit/:id" element={<EditDepartment />} />
               <Route
                 path="new"

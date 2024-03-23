@@ -1,6 +1,7 @@
 import "./sidebar.css";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import EventIcon from '@mui/icons-material/Event';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import CampaignIcon from '@mui/icons-material/Campaign';
@@ -35,6 +36,12 @@ const Sidebar = () => {
               <span>Campaign</span>
             </li>
           </Link>
+          <Link to="/event" style={{ textDecoration: "none" }}>
+            <li>
+              <EventIcon className="icon" />
+              <span>Event</span>
+            </li>
+          </Link>
           <p className="title">Management</p>
           <Link to="/users" style={{ textDecoration: "none" }}>
             <li>
@@ -55,7 +62,7 @@ const Sidebar = () => {
             </li>
           </Link>
           <p className="title">USER</p>
-          <Link to="/users/view" style={{ textDecoration: "none" }}>
+          <Link to="/profile" style={{ textDecoration: "none" }}>
             <li>
               <PersonOutlineIcon className="icon" />
               <span>Profile</span>
