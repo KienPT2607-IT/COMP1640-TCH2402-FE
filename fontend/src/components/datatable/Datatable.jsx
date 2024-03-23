@@ -19,10 +19,10 @@ const Datatable = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/users/view" style={{ textDecoration: "none" }}>
+            <Link to={`/users/view/${params.row.id}`} style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
-            <Link to="/users/new" style={{ textDecoration: "none" }}>
+            <Link to={`/users/edit/${params.row.id}`} style={{ textDecoration: "none" }}>
               <div className="editButton">Edit</div>
             </Link>
             <div

@@ -10,13 +10,18 @@ import ListCampaign from "./pages/listCampaign/ListCampaign";
 import ListDepartment from "./pages/listDepartment/ListDepartment";
 import Campaign from "./pages/campaign/Campaign";
 import Single from "./pages/single/Single";
-import New from "./pages/new/New";
+import Edit from "./pages/edit/Edit";
 import NewCampaign from "./pages/newCampaign/NewCampaign";
+import Detail from "./pages/viewDetail/Detail";
+
+import New from "./pages/new/New";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { magazinesInputs, userInputs } from "./formSource";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import "./style/dark.css";
+import EditCampaign from "./pages/editCampaign/EditCampaign";
+import EditDepartment from "./pages/editDepartment/EditDepartment";
+import NewDepartment from "./pages/newDepartment/NewDepartment";
 function App() {
   const { darkMode } = useContext(DarkModeContext);
 
@@ -33,34 +38,31 @@ function App() {
             <Route path="changepassword" element={<ChangePassWord />} />
             <Route path="campaign">
               <Route index element={<Campaign />} />
-              {/* <Route path="campaign" element={<Campaign />} /> */}
-              {/* <Route
-                path="new"
-                element={<New inputs={userInputs} title="Add New User" />}
-              /> */}
+              
             </Route>
             <Route path="users">
               <Route index element={<List />} />
-              <Route path=":userId" element={<Single />} />
+              <Route path="view/:id" component={<Detail/>} />
+                <Route path="edit/:userId" element={<Edit />} />
               <Route
                 path="new"
-                element={<New inputs={userInputs} title="Add New User" />}
+                element={<New />}
               />
             </Route>
             <Route path="campaigns">
               <Route index element={<ListCampaign />} />
-              <Route path=":userId" element={<Single />} />
+              <Route path="edit/:id" element={<EditCampaign />} />
               <Route
-                path="newCampaign"
-                element={<NewCampaign  title="Add New Campaign" />}
+                path="newcampaign"
+                element={<NewCampaign />}
               />
             </Route>
             <Route path="departments">
               <Route index element={<ListDepartment />} />
-              <Route path=":userId" element={<Single />} />
+              <Route path="edit/:id" element={<EditDepartment />} />
               <Route
                 path="new"
-                element={<New inputs={userInputs} title="Add New User" />}
+                element={<NewDepartment />}
               />
             </Route>
           </Route>

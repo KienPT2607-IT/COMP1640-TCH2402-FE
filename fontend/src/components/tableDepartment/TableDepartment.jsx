@@ -19,10 +19,10 @@ const TableDepartment = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/users/view" style={{ textDecoration: "none" }}>
+            <Link to="/departments/view" style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
-            <Link to="/users/new" style={{ textDecoration: "none" }}>
+            <Link to={`/departments/edit/${params.row.id}`} style={{ textDecoration: "none" }}>
               <div className="editButton">Edit</div>
             </Link>
             <div
@@ -40,8 +40,8 @@ const TableDepartment = () => {
   return (
     <div className="datatable">
       <div className="datatableTitle">
-        Add New User
-        <Link to="/users/new" className="link">
+        Add New Department
+        <Link to="/departments/new" className="link">
           Add New
         </Link>
       </div>

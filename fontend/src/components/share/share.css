@@ -1,18 +1,13 @@
-/* share.css */
-
 .share {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 100%;
+  height: 170px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+  box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
 }
 
 .shareWrapper {
-  width: 100%;
-  max-width: 600px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 20px;
-  margin-top: 20px;
+  padding: 10px;
 }
 
 .shareTop {
@@ -24,75 +19,58 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  object-fit: cover;
   margin-right: 10px;
 }
 
 .shareInput {
-  flex: 1;
   border: none;
+  width: 80%;
+}
+
+.shareInput:focus {
   outline: none;
-  font-size: 16px;
-  padding: 10px;
-  border-radius: 20px;
-  background-color: #f0f2f5;
 }
 
 .shareHr {
-  margin: 20px 0;
-  border: none;
-  border-top: 1px solid #ccc;
+  margin: 20px;
 }
 
 .shareBottom {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  width: 100%; /* Added to ensure the file input takes full width */
 }
 
-.shareOptions {
-  display: flex;
-  align-items: center;
+.shareOptions{
+    display: flex;
+    margin-left: 20px;
 }
 
-.shareOption {
-  display: flex;
-  align-items: center;
-  margin-right: 20px;
+.shareOption{
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    cursor: pointer;
 }
 
-.shareOption input[type="file"] {
-  display: none; /* Hide the default file input */
+.shareIcon{
+    font-size: 18px;
+    margin-right: 3px;
 }
 
-.fileInputWrapper {
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  padding: 8px 16px;
-  cursor: pointer;
+.shareOptionText{
+    font-size: 14px;
+    font-weight: 500;
 }
 
-.fileInputWrapper:hover {
-  background-color: #e1e1e1;
-}
-
-.fileInputLabel {
-  margin-left: 8px;
-  font-size: 16px;
-  color: #333;
-}
-
-.shareButton {
-  border: none;
-  outline: none;
-  background-color: #2e81f4;
-  color: white;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-.shareButton:hover {
-  background-color: #1e63cb;
+.shareButton{
+    border: none;
+    padding: 7px;
+    border-radius: 5px;
+    background-color: green;
+    font-weight: 500;
+    margin-right: 20px;
+    cursor: pointer;
+    color: white;
 }

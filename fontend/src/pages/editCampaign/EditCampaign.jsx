@@ -1,11 +1,11 @@
-import "./newCampaign.css";
+import "./editCampaign.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { useState } from "react";
 import DateTime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 
-const NewCampaign = ({ title }) => {
+const EditCampaign = ({ title }) => {
   const [text, setText] = useState('Initial text');
 
   const handleTextChange = (event) => {
@@ -94,4 +94,4 @@ const NewCampaign = ({ title }) => {
   );
 };
 
-export default NewCampaign;
+export default EditCampaign;
