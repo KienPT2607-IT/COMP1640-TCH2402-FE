@@ -32,7 +32,6 @@ export default function Share() {
         <div className="shareOption">
   <label htmlFor="fileInput" className="fileInputWrapper">
     <input type="file" id="fileInput" onChange={handleFileChange} />
-    <span className="fileInputLabel">Select File</span>
   </label>
   {selectedFile && <p>Selected file: {selectedFile.name}</p>}
 </div>

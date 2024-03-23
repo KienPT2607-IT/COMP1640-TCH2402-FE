@@ -6,30 +6,30 @@ import { useState } from "react";
 export default function CardEvent({ post }) {
   
   return (
-    <div className="post">
-      <div className="postWrapper">
-        <div className="postTop">
-          <div className="postTopLeft">
-            <span className="postUsername">
+    <div className="postt">
+      <div className="posttWrapper">
+        <div className="posttTop">
+          <div className="posttTopLeft">
+            <span className="posttUsername">
               {post.name}
             </span>
             {/* <span className="postLabel"></span> */}
-          <span className="postDate">Start Date: {post.start}</span>
+          <span className="posttDate">Start Date: {post.start}</span>
           {/* <span className="postLabel"></span> */}
-          <span className="postDate">Final Date: {post.final}</span>
+          <span className="posttDate">Final Date: {post.final}</span>
           </div>
-          <div className="postTopRight">
+          <div className="posttTopRight">
             <MoreVert />
           </div>
         </div>
-        <div className="postCenter">
+        <div className="posttCenter">
           
           {/* <span className="postText">{post?.desc}</span> */}
         </div>
         
         <form>
             <button
-            className="btnPost"
+            className="btnPostt"
             alt=""
             >Detail</button>
             </form>

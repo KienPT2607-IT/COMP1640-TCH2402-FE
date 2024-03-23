@@ -1,4 +1,4 @@
-.post {
+.postt {
     width: 100%;
     border-radius: 10px;
     -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
@@ -6,60 +6,60 @@
     margin: 30px 0;
   }
   
-  .postWrapper {
+  .posttWrapper {
     display: flex;
     flex-direction: column;
   }
   
-  .postTop {
+  .posttTop {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
   
-  .postTopLeft {
+  .posttTopLeft {
     display: flex;
     flex-direction: column; /* Display the content vertically */
   }
   
-  .postProfileImg {
+  .posttProfileImg {
     width: 32px;
     height: 32px;
     border-radius: 50%;
     object-fit: cover;
   }
   
-  .postUsername {
+  .posttUsername {
     font-size: 20px;
     font-weight: bold;
     font-style: italic;
     margin: 0 10px;
   }
   
-  .postDate{
+  .posttDate{
       font-size: 20px;
       
   }
   
-  .postCenter {
+  .posttCenter {
     margin-top: 10px; /* Adjust margin as needed */
   }
   
   
-  .postBottom{
+  .posttBottom{
       display: flex;
       align-items: center;
       justify-content: space-between;
   }
   
-  .postBottomLeft{
+  .posttBottomLeft{
       display: flex;
       align-items: center;   
   }
-  .postTopRight {
+  .posttTopRight {
     margin-left: auto;
   }
-  .btnPost {
+  .btnPostt {
     background-color: brown; /* Set button background color */
     color: white; /* Set button text color */
     border: none; /* Remove button border */
