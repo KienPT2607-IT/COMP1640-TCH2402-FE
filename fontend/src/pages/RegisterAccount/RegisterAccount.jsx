@@ -1,8 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import './RegisterAccount.css';
 import { FaUser, FaLock } from "react-icons/fa";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const RegisterAccount = () => {
+    const[full_name, setFullName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [password_confirm, setPasswordConfirm] = useState('');
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
+
+    const handleEmail = (e) => {
+        setEmail(e.target.value);
+    }
+
+    const handlePassword = (e) => {
+        setPassword(e.target.value);
+    }
+
+    const handleFullName = (e) => {
+        setFullName(e.target.value);
+    }
+    const handlePasswodConfirm= (e) => {
+        setPasswordConfirm(e.target.value);
+    }
+
+    const handleApi = (e) => {
+        e.preventDefault(); // Ngăn chặn sự kiện mặc định của form
+        if (!email || !password || !full_name) {
+            alert('Please enter Information');
+            return;
+        }
+        axios.post('https://comp1640-tch2402-be.onrender.com/users/register', {
+            email: email,
+            password: password
+        })
+
+    }
+
     return (
         <div className="register">
             <form action="">
