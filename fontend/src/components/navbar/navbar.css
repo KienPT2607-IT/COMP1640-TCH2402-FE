@@ -7,11 +7,13 @@
   color: #555;
 
   .wrapper {
-    width: 100%;
-    padding: 20px;
-    display: flex;
+    top: 3.3%;
+    width: 70%;
+    padding: 10px; 
+    display:flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content:space-between;
+    
 
     .search {
       display: flex;
