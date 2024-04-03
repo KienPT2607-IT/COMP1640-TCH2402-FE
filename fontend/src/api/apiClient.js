@@ -4,7 +4,7 @@ import queryString from 'query-string';
 const axiosClient = axios.create({
     baseURL: 'https://comp1640-tch2402-be.onrender.com',
     headers: {
-        'Content-Type': 'application/json',
+        'content-type': 'application/json',
     },
     paramsSerializer: params => queryString.stringify(params),
 });

@@ -5,13 +5,6 @@ import Datatable from "../../components/datatable/Datatable"
 import axios from "axios"
 
 const List = () => {
-  axios.get('https://comp1640-tch2402-be.onrender.com/users')
-  .then(res=>{
-    console.log(res)
-  }).catch(err => {
-    console.log(err)
-  })
-
   return (
     <div className="list">
       <Sidebar/>
@@ -22,5 +15,6 @@ const List = () => {
     </div>
   )
 }
-
+// user vs cả list đấy à
+//đúng r có nghĩa list sẽ chỉ việc hiển thị thôi còn datatable làlíxử 
 export default List
