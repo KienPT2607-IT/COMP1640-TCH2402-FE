@@ -34,6 +34,8 @@ const LoginForm = () => {
             //     navigate('/event');
             // })
             .then(result => {
+                const token = result.data.token; // Giả sử token được trả về từ API là `token`
+                localStorage.setItem('x-auth-token', token); // Lưu token vào local storage
                 // const { role } = result.data; // Giả sử API trả về vai trò của người dùng
                 const role = result['data']["data"]["role"].name;
 

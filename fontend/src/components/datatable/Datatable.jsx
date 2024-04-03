@@ -1,59 +1,73 @@
-import "./datatable.css";
-import { DataGrid } from "@mui/x-data-grid";
-import { userColumns, userRows } from "../../datatablesource";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import './datatable.css';
+import { Link } from 'react-router-dom'; // Thêm thư viện Link từ react-router-dom
+function Datatable() {
+  const [users, setUsers] = useState([]);
 
-const Datatable = () => {
-  const [data, setData] = useState(userRows);
+  useEffect(() => {
+    const token = localStorage.getItem('x-auth-token');
+    console.log("Token:", token);
+    if (token) {
+      const config = {
+        headers: {
+          'x-auth-token': token
+        }
+      };
+      console.log("Config:", config);
+      axios.get('https://comp1640-tch2402-be.onrender.com/users', config) // Sửa URL endpoint để phù hợp với endpoint của bạn
+        .then(response => {
+          console.log("Response:", response.data.data); // Dữ liệu trả về từ server được lưu trong response.data.data
+          setUsers(response.data.data); // Lưu dữ liệu người dùng vào state
+        })
+        .catch(error => console.error("Error:", error));
+    }
+  }, []);
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
-  };
 
-  const actionColumn = [
-    {
-      field: "action",
-      headerName: "Action",
-      width: 200,
-      renderCell: (params) => {
-        return (
-          <div className="cellAction">
-            <Link to={`/users/view/${params.row.id}`} style={{ textDecoration: "none" }}>
-              <div className="viewButton">View</div>
-            </Link>
-            <Link to={`/users/edit/${params.row.id}`} style={{ textDecoration: "none" }}>
-              <div className="editButton">Edit</div>
-            </Link>
-            <div
-              className="deleteButton"
-              onClick={() => handleDelete(params.row.id)}
-            >
-              Delete
-            </div>
-            
-          </div>
-        );
-      },
-    },
-  ];
+
   return (
-    <div className="datatable">
-      <div className="datatableTitle">
-        Add New User
-        <Link to="/users/new" className="link">
-          Add New
-        </Link>
-      </div>
-      <DataGrid
-        className="datagrid"
-        rows={data}
-        columns={userColumns.concat(actionColumn)}
-        pageSize={3}
-        rowsPerPageOptions={[5]}
-      />
+    <div className="datatable-container">
+      <h1>User Data</h1>
+      <table className="datatable">
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Date of Birth</th>
+            <th>Phone Number</th>
+            <th>Gender</th>
+            <th>Profile Picture</th>
+            <th>Registration Date</th>
+            <th>Account Status</th>
+            <th>Faculty</th>
+            <th>Role</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map(user => (
+            <tr key={user._id}>
+              <td>{user.full_name}</td>
+              <td>{user.email}</td>
+              <td>{user.dob}</td>
+              <td>{user.phone_number}</td>
+              <td>{user.gender ? 'Male' : 'Female'}</td>
+              <td>{user.profile_picture}</td>
+              <td>{user.registration_date}</td>
+              <td>{user.account_status ? 'Active' : 'Inactive'}</td>
+              <td>{user.faculty}</td>
+              <td>{user.role}</td>
+              <td><Link to={`/edit/${user._id}`} className="edit-button">Edit</Link></td>
+              <td><Link to={`/delete/${user._id}`} className="delete-button">Delete</Link></td>
+
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
-};
+}
 
 export default Datatable;
