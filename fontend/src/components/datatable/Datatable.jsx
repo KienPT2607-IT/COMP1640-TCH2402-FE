@@ -61,7 +61,7 @@ function Datatable() {
               <td>{user.role}</td>
               <td><Link to={`/edit/${user._id}`} className="edit-button">Edit</Link></td>
               <td><Link to={`/delete/${user._id}`} className="delete-button">Delete</Link></td>
-
+              <td><Link to={`/users/${user._id}`} className="view-button">View</Link></td>
             </tr>
           ))}
         </tbody>

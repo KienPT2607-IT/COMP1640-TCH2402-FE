@@ -28,11 +28,6 @@ const LoginForm = () => {
             email: email,
             password: password
         })
-            // .then(result => {
-            //     console.log(result.data);
-            //     alert('Success');
-            //     navigate('/event');
-            // })
             .then(result => {
                 const token = result.data.token; // Giả sử token được trả về từ API là `token`
                 localStorage.setItem('x-auth-token', token); // Lưu token vào local storage

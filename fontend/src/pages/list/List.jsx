@@ -2,9 +2,9 @@ import "./list.css"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Navbar"
 import Datatable from "../../components/datatable/Datatable"
-import axios from "axios"
 
 const List = () => {
+<<<<<<< HEAD
   // axios.get('https://comp1640-tch2402-be.onrender.com/users')
   // .then(res=>{
   //   console.log(res)
@@ -12,6 +12,8 @@ const List = () => {
   //   console.log(err)
   // })
 
+=======
+>>>>>>> TuanDevelop
   return (
     <div className="list">
       <Sidebar/>
@@ -22,5 +24,4 @@ const List = () => {
     </div>
   )
 }
-
 export default List
