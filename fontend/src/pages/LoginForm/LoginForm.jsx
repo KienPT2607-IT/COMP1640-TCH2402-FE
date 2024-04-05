@@ -29,26 +29,23 @@ const LoginForm = () => {
             password: password
         })
             .then(result => {
+                const token = result.data.token; // Giả sử token được trả về từ API là `token`
+                localStorage.setItem('x-auth-token', token); // Lưu token vào local storage
                 // const { role } = result.data; // Giả sử API trả về vai trò của người dùng
                 const role = result['data']["data"]["role"].name;
 
                 // console.log(result['data']["data"]["role"].name) // Sử dụng giả định, bạn cần thay đổi thành lấy từ dữ liệu API
                 if (role === 'Admin') {
-                    alert('Admin Login Success');
                     navigate('/'); // Chuyển hướng đến trang dashboard nếu là admin
                 } else if (role === 'Student') {
-                    alert('Student Login Success');
                     navigate('/event'); // Chuyển hướng đến trang event nếu là user
-                } else if (role === 'Guest') {
-                    alert('Guest Login Success');
+                }else if (role === 'Guest') {
                     navigate('/event'); // Chuyển hướng đến trang event nếu là user
-                } else if (role === 'Marketing Coordinator') {
-                    alert('Maketing Coordinator Login Success');
+                }else if (role === 'Marketing Coordinator') {
                     navigate('/event'); // Chuyển hướng đến trang event nếu là user
-                } else if (role === 'Marketing Manager') {
-                    alert('Maketing Manager Login Success');
+                }else if (role === 'Marketing Manager') {
                     navigate('/event'); // Chuyển hướng đến trang event nếu là user
-                } else {
+                }else {
                     alert('Unknown role');
                 }
             })

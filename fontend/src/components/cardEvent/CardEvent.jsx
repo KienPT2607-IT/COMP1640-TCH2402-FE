@@ -1,39 +1,33 @@
 import "./cardEvent.css";
 import { MoreVert } from "@material-ui/icons";
-import { campaignRows } from "../../dataCampaign";
-import { useState } from "react";
 
-export default function CardEvent({ post }) {
-  
+export default function CardEvent({ event }) {
+
   return (
-    <div className="postt">
-      <div className="posttWrapper">
-        <div className="posttTop">
-          <div className="posttTopLeft">
-            <span className="posttUsername">
-              {post.name}
+    <div className="post">
+      <div className="postWrapper">
+        <div className="postTop">
+          <div className="postTopLeft">
+            <span className="postUsername">
+              {event.name}
             </span>
-            {/* <span className="postLabel"></span> */}
-          <span className="posttDate">Start Date: {post.start}</span>
-          {/* <span className="postLabel"></span> */}
-          <span className="posttDate">Final Date: {post.final}</span>
           </div>
-          <div className="posttTopRight">
+          <div>
+              <span className="postDate">Start Date: {event.create_date}</span>
+              <span className="postDate">Final Date: {event.due_date}</span>
+            </div>
+          <div className="postTopRight">
             <MoreVert />
           </div>
         </div>
-        <div className="posttCenter">
-          
-          {/* <span className="postText">{post?.desc}</span> */}
+        <div className="postCenter">
+          <span className="postText">Description: {event.description}</span>
         </div>
-        
+
         <form>
-            <button
-            className="btnPostt"
-            alt=""
-            >Detail</button>
-            </form>
-                    
+          <button className="btnPost" alt="">Detail</button>
+        </form>
+
       </div>
     </div>
   );

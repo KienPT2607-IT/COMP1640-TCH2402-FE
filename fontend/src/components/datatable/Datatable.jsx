@@ -1,127 +1,71 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { DataGrid } from "@mui/x-data-grid";
-import { Link } from "react-router-dom";
-import "./datatable.css";
-import apiClient from "../../api/apiClient";
-import userApi from "../../api/userApi";
-
-const Datatable = () => {
-  const [userData, setUserData] = useState([]);
-  const [error, setError] = useState(null);
-  const [userApi, setUserApi] = useState([]);
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import './datatable.css';
+import { Link } from 'react-router-dom'; // Thêm thư viện Link từ react-router-dom
+function Datatable() {
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const params = {
-          _page: 1,
-          _limit: 10,
-        };
-        const token = apiClient.getToken(); // Lấy token từ sessionStorage
-        const response = await userApi.getAll(params, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        console.log(response);
-        setUserApi(response.data);
-      } catch (error) {
-        handleError(error);
-      }
-    };
-   fetchUser();
+    const token = localStorage.getItem('x-auth-token');
+    console.log("Token:", token);
+    if (token) {
+      const config = {
+        headers: {
+          'x-auth-token': token
+        }
+      };
+      console.log("Config:", config);
+      axios.get('https://comp1640-tch2402-be.onrender.com/users', config) // Sửa URL endpoint để phù hợp với endpoint của bạn
+        .then(response => {
+          console.log( "Response:", response.data.data); // Dữ liệu trả về từ server được lưu trong response.data.data
+          setUsers(response.data.data); // Lưu dữ liệu người dùng vào state
+        })
+        .catch(error => console.error("Error:", error));
+    }
   }, []);
 
-  const handleError = (error) => {
-    if (error.response) {
-      setError(`Error: ${error.response.status} - ${error.response.data.message}`);
-    } else if (error.request) {
-      setError("Error: No response received from the server");
-    } else {
-      alert("Error: Request failed to reach the server");
-    }
-  };
-
-  const handleDelete = async (id) => {
-    try {
-      const token = apiClient.getToken(); // Lấy token từ sessionStorage
-      await axios.delete(`https://comp1640-tch2402-be.onrender.com/users/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      setUserData(prevUserData => prevUserData.filter((user) => user.id !== id));
-    } catch (error) {
-      setError("Error deleting user");
-    }
-  };
-
-  const columns = [
-    { field: "id", headerName: "ID", width: 70 },
-    {
-      field: "user",
-      headerName: "Full Name",
-      width: 230,
-      renderCell: (params) => (
-        <div className="cellWithImg">
-          <img className="cellImg" src={params.row.img} alt="avatar" />
-          {params.row.full_name}
-        </div>
-      ),
-    },
-    { field: "email", headerName: "Email", width: 230 },
-    { field: "department", headerName: "Department", width: 100 },
-    { field: "role", headerName: "Role", width: 100 },
-    { field: "DOB", headerName: "DOB", width: 100 },
-    {
-      field: "status",
-      headerName: "Status",
-      width: 160,
-      renderCell: (params) => (
-        <div className={`cellWithStatus ${params.row.status}`}>
-          {params.row.status}
-        </div>
-      ),
-    },
-    {
-      field: "action",
-      headerName: "Action",
-      width: 200,
-      renderCell: (params) => (
-        <div className="cellAction">
-          <Link to={`/users/view/${params.row.id}`} style={{ textDecoration: "none" }}>
-            <div className="viewButton">View</div>
-          </Link>
-          <Link to={`/users/edit/${params.row.id}`} style={{ textDecoration: "none" }}>
-            <div className="editButton">Edit</div>
-          </Link>
-          <div className="deleteButton" onClick={() => handleDelete(params.row.id)}>
-            Delete
-          </div>
-        </div>
-      ),
-    },
-  ];
-
   return (
-    <div className="datatable">
-      <div className="datatableTitle">
-        Add New User
-        <Link to="/users/new" className="link">
-          Add New
-        </Link>
-      </div>
-      <DataGrid
-        className="datagrid"
-        rows={userData}
-        columns={columns}
-        pageSize={3}
-        rowsPerPageOptions={[5]}
-      />
-      {error && <p>{error}</p>}
+    <div className="datatable-container">
+      <h1>User Data</h1>
+      <table className="datatable">
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Date of Birth</th>
+            <th>Phone Number</th>
+            <th>Gender</th>
+            <th>Profile Picture</th>
+            <th>Registration Date</th>
+            <th>Account Status</th>
+            <th>Faculty</th>
+            <th>Role</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map(user => (
+            <tr key={user._id}>
+              <td>{user.full_name}</td>
+              <td>{user.email}</td>
+              <td>{user.dob}</td>
+              <td>{user.phone_number}</td>
+              <td>{user.gender ? 'Male' : 'Female'}</td>
+              <td>{user.profile_picture}</td>
+              <td>{user.registration_date}</td>
+              <td>{user.account_status ? 'Active' : 'Inactive'}</td>
+              <td>{user.faculty}</td>
+              <td>{user.role}</td>
+              <td><Link to={`/edit/${user._id}`} className="edit-button">Edit</Link></td>
+              <td><Link to={`/delete/${user._id}`} className="delete-button">Delete</Link></td>
+              <td><Link to={`/users/${user._id}`} className="view-button">View</Link></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
-};
+}
 
 export default Datatable;

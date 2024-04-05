@@ -5,79 +5,50 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const TableCampaign = () => {
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
+  const [campaigns, setCampaigns] = useState([]);
+
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("https://comp1640-tch2402-be.onrender.com/users/campaigns/");
-        setData(response.data);
-      } catch (error) {
-        setError("Error fetching data");
-      }
-    };
-
-    fetchData();
+    const token = localStorage.getItem('x-auth-token');
+    console.log("Token:", token);
+    if (token) {
+      const config = {
+        headers: {
+          'x-auth-token': token
+        }
+      };
+      console.log("Config:", config);
+      //chưa đổi link api của campaigns
+      axios.get('https://comp1640-tch2402-be.onrender.com/users', config) // Sửa URL endpoint để phù hợp với endpoint của bạn
+        .then(response => {
+          console.log("Response:", response.data.data); // Dữ liệu trả về từ server được lưu trong response.data.data
+          setCampaigns(response.data.data); // Lưu dữ liệu người dùng vào state
+        })
+        .catch(error => console.error("Error:", error));
+    }
   }, []);
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`https://comp1640-tch2402-be.onrender.com/users/campaigns/${id}`);
-      setData(data.filter((item) => item.id !== id));
-    } catch (error) {
-      setError("Error deleting campaign");
-    }
-  };
-
-  const actionColumn = [
-    {
-      field: "action",
-      headerName: "Action",
-      width: 200,
-      renderCell: (params) => {
-        return (
-          <div className="cellAction">
-            <Link to={`/campaigns/view/${params.row.id}`} style={{ textDecoration: "none" }}>
-              <div className="viewButton">View</div>
-            </Link>
-            <Link to={`/campaigns/edit/${params.row.id}`} style={{ textDecoration: "none" }}>
-              <div className="editButton">Edit</div>
-            </Link>
-            <div
-              className="deleteButton"
-              onClick={() => handleDelete(params.row.id)}
-            >
-              Delete
-            </div>
-          </div>
-        );
-      },
-    },
-  ];
-
-  const campaignColumns = [ // Define your columns here
-    { field: "id", headerName: "ID", width: 70 },
-    { field: "name", headerName: "Name", width: 230 },
-    // Add other columns as needed
-  ];
-
   return (
-    <div className="datatable">
-      <div className="datatableTitle">
-        Add New Campaign
-        <Link to="/campaigns/newCampaign" className="link">
-          Add New
-        </Link>
-      </div>
-      <DataGrid
-        className="datagrid"
-        rows={data}
-        columns={campaignColumns.concat(actionColumn)}
-        pageSize={3}
-        rowsPerPageOptions={[5]}
-      />
-      {error && <p>{error}</p>}
+    <div className="datatable-container">
+      <h1>Campaign Data</h1>
+      <table className="datatable">
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Date of Birth</th>
+          </tr>
+        </thead>
+        <tbody>
+          {campaigns.map(campaign => (
+            <tr key={campaign._id}>
+              <td>{campaign.full_name}</td>
+              <td>{campaign.email}</td>
+              <td>{campaign.dob}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

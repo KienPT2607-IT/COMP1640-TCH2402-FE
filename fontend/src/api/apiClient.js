@@ -1,6 +1,11 @@
 import axios from 'axios';
 import queryString from 'query-string';
 
+const getToken = () => {
+    const token = sessionStorage.getItem('x-auth-Token');
+    return token;
+};
+
 const axiosClient = axios.create({
     baseURL: 'https://comp1640-tch2402-be.onrender.com',
     headers: {
@@ -10,7 +15,7 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.request.use(async (config) => {
-    const token = sessionStorage.getItem('x-auth-Token');
+    const token = getToken(); // Sử dụng hàm getToken để lấy token từ sessionStorage
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     } else {
