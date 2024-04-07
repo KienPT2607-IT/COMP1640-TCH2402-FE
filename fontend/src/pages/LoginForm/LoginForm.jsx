@@ -24,13 +24,13 @@ const LoginForm = () => {
             alert('Please enter email and password');
             return;
         }
-        axios.post('https://comp1640-tch2402-be.onrender.com/users/login', {
+        axios.post(`https://comp1640-tch2402-be.onrender.com/users/login`, {
             email: email,
             password: password
         })
             .then(result => {
                 const token = result.data.token; // Giả sử token được trả về từ API là `token`
-                localStorage.setItem('x-auth-token', token); // Lưu token vào local storage
+                sessionStorage.setItem('x-auth-token', token); // Lưu token vào local storage
                 // const { role } = result.data; // Giả sử API trả về vai trò của người dùng
                 const role = result['data']["data"]["role"].name;
 

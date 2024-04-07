@@ -2,7 +2,8 @@ import axios from 'axios';
 import queryString from 'query-string';
 
 const getToken = () => {
-    const token = sessionStorage.getItem('x-auth-Token');
+    const token = sessionStorage.getItem('x-auth-token');
+    console.log('Token: ', token);
     return token;
 };
 
@@ -10,12 +11,14 @@ const axiosClient = axios.create({
     baseURL: 'https://comp1640-tch2402-be.onrender.com',
     headers: {
         'content-type': 'application/json',
+        'x-auth-token' : getToken(),
     },
     paramsSerializer: params => queryString.stringify(params),
 });
 
 axiosClient.interceptors.request.use(async (config) => {
-    const token = getToken(); // Sử dụng hàm getToken để lấy token từ sessionStorage
+    const token = getToken();
+     // Sử dụng hàm getToken để lấy token từ sessionStorage
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     } else {
@@ -23,7 +26,6 @@ axiosClient.interceptors.request.use(async (config) => {
         // window.location.href = '/login';
         throw new Error('Unauthorized: Token not found');
     }
-
     return config;
 });
 

@@ -5,28 +5,112 @@ import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUpload
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { FaGenderless } from "react-icons/fa6";
+import userApi from "../../api/userApi";
+import Select from "react-select";
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const New = ({ }) => {
-  const [file, setFile] = useState("");
-  const [selectedUser, setSelectedUser] = useState(null);
+  const showToastMessageSuccess = (mesage) => {
+    toast.success(mesage, {
+      position: "top-right",
+      reverseOrder: true,
+      duration: 6000,
+    });
+  };
 
-  const [selectedDate, setSelectedDate] = useState(null);
+  const showToastMessagFail = (mesage) => {
+    toast.error(mesage, {
+      position: "top-right",
+      reverseOrder: true,
+      duration: 6000,
+    });
+  };
+  const facultyOptions = [
+    { value: "Graphic and Digital Design", label: "Graphic and Digital Design" }
+  ];
+
+  const roleOptions = [
+    { value: "Marketing Coordinator", label: "Marketing Coordinator" }
+  ];
+
+  const genderOptions = [
+    { value: true, label: "Male" },
+    { value: false, label: "Female" }
+  ];
+
+
+  const [file, setFile] = useState("");
+  const [selectedUser, setSelectedUser] = useState([]);
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [dob, setDob] = useState('');
+  const [gender, setGender] = useState(genderOptions[0].value);
+  const [phone, setPhone] = useState('');
+  const [faculty, setFaculty] = useState(facultyOptions[0].value);
+  const [role, setRole] = useState(roleOptions[0].value);
+
   const handleDateChange = (date) => {
-    setSelectedDate(date);
+    setDob(date);
   };
   const handleChange = (e) => {
     setSelectedUser({
       ...selectedUser,
       [e.target.name]: e.target.value,
     });
+    // data[e.target.name] = e.target.value;
   };
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     // Handle form submission
     console.log("Add user data:", selectedUser);
   };
+
+  const roleChangeHandler = (event) => {
+    setRole(event.target.value);
+    console.log(
+      "User Selected Value - ",
+      event.target.value
+    );
+  };
+
+  const facultyChangeHandler = (event) => {
+    setFaculty(event.target.value);
+    console.log(
+      "User Selected Value - ",
+      event.target.value
+    );
+  };
+
+  const submitForm = async (e) => {
+    e.preventDefault();
+    try {
+      console.log("Da vo day");
+      let data = {
+        "full_name": fullName,
+        "email": email,
+        "password": password,
+        "dob": dob,
+        "gender": gender,
+        "phone_number": phone,
+        "faculty": faculty,
+        "role": role,
+      }
+      const response = await userApi.create(data);
+      console.log(response);
+      showToastMessageSuccess(response.message);
+    } catch (error) {
+      console.log('Fail to fetch', error)
+      showToastMessagFail(error.message);
+    }
+  }
+
   return (
     <div className="new">
+      <Toaster />
       <Sidebar />
       <div className="newContainer">
         <Navbar />
@@ -57,62 +141,71 @@ const New = ({ }) => {
             />
           </div>
           <div className="right">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={submitForm}>
               <div className="formInput">
-                <label htmlFor="username">Role:</label>
+                <label htmlFor="role">Role:</label>
+                <Select name="role" value={roleOptions.value}
+                  options={roleOptions}
+                  defaultValue={roleOptions[0]} onChange={(selection) => setRole(selection.value)} />
+              </div>
+              <div className="formInput">
+                <label htmlFor="faculty">Faculty:</label>
+                <Select name="faculty" value={facultyOptions.value}
+                  options={facultyOptions}
+                  defaultValue={facultyOptions[0]} onChange={(selection) => setFaculty(selection.value)} />
+              </div>
+              <div className="formInput">
+                <label htmlFor="fullName">Name:</label>
                 <input
+                  name="fullName"
                   type="text"
-                  id="username"
-                  name="username"
-                  onChange={handleChange}
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="email">Department:</label>
+                <label htmlFor="gender">Gender:</label>
+                <Select name="gender" value={genderOptions.value}
+                  options={genderOptions}
+                  defaultValue={genderOptions[0]} onChange={(selection) => setGender(selection.value)} />
+              </div>
+              <div className="formInput">
+                <label htmlFor="email">Email:</label>
                 <input
-                  type="email"
-                  id="email"
                   name="email"
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="formInput">
-                <label htmlFor="username">Name:</label>
-                <input
                   type="text"
-                  id="username"
-                  name="username"
-                  onChange={handleChange}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="username">Email:</label>
+                <label htmlFor="pasword">Password:</label>
                 <input
+                  name="password"
                   type="text"
-                  id="username"
-                  name="username"
-                  onChange={handleChange}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="username">Password:</label>
+                <label htmlFor="phone">Phone:</label>
                 <input
-                  type="password"
-                  id="username"
-                  name="username"
-                  onChange={handleChange}
+                  name="phone"
+                  type="text"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="username">DOB:</label>
+                <label htmlFor="dob">DOB:</label>
                 <DatePicker
-        selected={selectedDate}
-        onChange={handleDateChange}
-        dateFormat="dd/MM/yyyy"
-        // You can customize the date format according to your needs
-      />
+                  selected={dob}
+                  onChange={(value) => setDob(value)}
+                  dateFormat="dd/MM/yyyy"
+                // You can customize the date format according to your needs
+                />
               </div>
-                <button type="submit">Save</button>
+              <input type="submit" value="Submit" />
             </form>
           </div>
         </div>
