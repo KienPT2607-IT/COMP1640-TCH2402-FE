@@ -1,6 +1,5 @@
+import axiosClient from "./apiClient";
 import apiClient from "./apiClient";
-
-
 
 const userApi = {
     getAll: () => {
@@ -11,10 +10,18 @@ const userApi = {
         const url = '/users/create-user';
         return apiClient.post(url, data);
     },
-    update: () => {
-        const url = 'users/update'
+    update: (data) => {
+        const url = `/users/update/${data.userId}`;
+        return apiClient.put(url, data);
+    },
+    delete: (userId) => {
+        const url = `/users/delete/${userId}`;
+        return apiClient.delete(url);
+    },
+    getDetail: (id) => {
+        const url = `/users/${id}`;
+        return axiosClient.get(url);
     }
-    // Thêm các phương thức API khác ở đây nếu cần
 }
 
 export default userApi;

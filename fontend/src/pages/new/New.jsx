@@ -109,7 +109,7 @@ const New = ({ }) => {
   }
 
   return (
-    <div className="new">
+    <div className = "new">
       <Toaster />
       <Sidebar />
       <div className="newContainer">

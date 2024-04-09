@@ -3,48 +3,53 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import eventApi from '../../api/eventApi'
+import React from "react";
+import { MoreVert } from "@material-ui/icons";
 
 const TableCampaign = () => {
-  const [campaigns, setCampaigns] = useState([]);
-
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem('x-auth-token');
-    console.log("Token:", token);
-    if (token) {
-      const config = {
-        headers: {
-          'x-auth-token': token
-        }
-      };
-      console.log("Config:", config);
-      //chưa đổi link api của campaigns
-      axios.get('https://comp1640-tch2402-be.onrender.com/users', config) // Sửa URL endpoint để phù hợp với endpoint của bạn
-        .then(response => {
-          console.log("Response:", response.data.data); // Dữ liệu trả về từ server được lưu trong response.data.data
-          setCampaigns(response.data.data); // Lưu dữ liệu người dùng vào state
-        })
-        .catch(error => console.error("Error:", error));
+    const fetchEvents = async () => {
+      try {
+        const response = await eventApi.getAll();
+        console.log(response);
+        setEvents(response.data)
+      } catch (error) {
+        console.log('Fail to fetch', error)
+      }
     }
+    fetchEvents();
   }, []);
 
   return (
     <div className="datatable-container">
-      <h1>Campaign Data</h1>
+      <h1>Event Data</h1>
       <table className="datatable">
         <thead>
           <tr>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>Date of Birth</th>
+            <th> Name</th>
+            <th>Create Date</th>
+            <th>Due Date</th>
+            <th>Closure Date</th>
+            <th>Is Enable</th>
+            <th>Last Update</th>
+            <th>Create By</th>
+            <th>Description</th>
           </tr>
         </thead>
         <tbody>
-          {campaigns.map(campaign => (
-            <tr key={campaign._id}>
-              <td>{campaign.full_name}</td>
-              <td>{campaign.email}</td>
-              <td>{campaign.dob}</td>
+          {events.map(event => (
+            <tr key={event._id}>
+              <td>{event.name}</td>
+              <td>{event.create_date}</td>
+              <td>{event.due_date}</td>
+              <td>{event.closure_date}</td>
+              <td>{event.is_enable.toString()}</td>
+              <td>{event.last_update}</td>
+              <td>{event.create_by.full_name}</td>
+              <td>{event.description}</td>
             </tr>
           ))}
         </tbody>

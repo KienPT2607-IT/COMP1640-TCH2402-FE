@@ -1,55 +1,72 @@
 import "./single.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import Chart from "../../components/chart/Chart";
+import { useState, useEffect } from "react";
+import userApi from "../../api/userApi";
 
 const Single = () => {
-  return (
-    <div className="single">
-      <Sidebar />
-      <div className="singleContainer">
-        <Navbar />
-        <div className="top">
-          <div className="left">
-            <div className="editButton">Edit</div>
-            <h1 className="title">Information</h1>
-            <div className="item">
-              <img
-                src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-                alt=""
-                className="itemImg"
-              />
-              <div className="details">
-                <h1 className="itemTitle">Jane Doe</h1>
-                <div className="detailItem">
-                  <span className="itemKey">Email:</span>
-                  <span className="itemValue">janedoe@gmail.com</span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Phone:</span>
-                  <span className="itemValue">+1 2345 67 89</span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Address:</span>
-                  <span className="itemValue">
-                    Elton St. 234 Garden Yd. NewYork
-                  </span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Country:</span>
-                  <span className="itemValue">USA</span>
-                </div>
-              </div>
+    const [userData, setUserData] = useState(null);
+
+    useEffect(() => {
+        // Lấy thông tin tài khoản từ sessionStorage khi component được render
+        const token = sessionStorage.getItem('x-auth-token');
+        if (token) {
+            // Gọi API để lấy thông tin tài khoản dựa trên token
+            userApi.getDetail(token)
+                .then(response => {
+                    // Lưu thông tin tài khoản vào state để hiển thị
+                    setUserData(response);
+                })
+                .catch(error => {
+                    console.error('Error fetching user data:', error);
+                });
+        }
+    }, []);
+
+    return (
+        <div className="single">
+            <Navbar />
+            <div className="singleContainer">
+                <Sidebar />
+                <table className="datatable">
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Date of Birth</th>
+                            <th>Phone Number</th>
+                            <th>Gender</th>
+                            <th>Profile Picture</th>
+                            <th>Registration Date</th>
+                            <th>Account Status</th>
+                            <th>Faculty</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {userData ? (
+                            <tr>
+                                <td>{userData.full_name}</td>
+                                <td>{userData.email}</td>
+                                <td>{userData.dob}</td>
+                                <td>{userData.phone_number}</td>
+                                <td>{userData.gender ? 'Male' : 'Female'}</td>
+                                <td>{userData.profile_picture}</td>
+                                <td>{userData.registration_date}</td>
+                                <td>{userData.account_status ? 'Active' : 'Inactive'}</td>
+                                <td>{userData.faculty}</td>
+                                <td>{userData.role}</td>
+                            </tr>
+                        ) : (
+                            <tr>
+                                <td colSpan="10">Loading...</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
             </div>
-          </div>
         </div>
-        {/* <div className="bottom">
-        <h1 className="title">Last Transactions</h1>
-          <List/>
-        </div> */}
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Single;
