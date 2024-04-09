@@ -5,68 +5,81 @@ import { useState, useEffect } from "react";
 import userApi from "../../api/userApi";
 
 const Single = () => {
-    const [userData, setUserData] = useState(null);
+  const [userProfile, setUserProfile] = useState({});
 
-    useEffect(() => {
-        // Lấy thông tin tài khoản từ sessionStorage khi component được render
-        const token = sessionStorage.getItem('x-auth-token');
-        if (token) {
-            // Gọi API để lấy thông tin tài khoản dựa trên token
-            userApi.getDetail(token)
-                .then(response => {
-                    // Lưu thông tin tài khoản vào state để hiển thị
-                    setUserData(response);
-                })
-                .catch(error => {
-                    console.error('Error fetching user data:', error);
-                });
-        }
-    }, []);
+  useEffect(() => {
+    const fetchUserSingle = async () => {
+      try {
+        const response = await userApi.getDetail();
+        console.log(response);
+        setUserProfile(response.data)
+      } catch (error) {
+        console.log('Fail to fetch', error)
+      }
+    }
+    fetchUserSingle();
+  }, []);
 
-    return (
-        <div className="single">
-            <Navbar />
-            <div className="singleContainer">
-                <Sidebar />
-                <table className="datatable">
-                    <thead>
-                        <tr>
-                            <th>Full Name</th>
-                            <th>Email</th>
-                            <th>Date of Birth</th>
-                            <th>Phone Number</th>
-                            <th>Gender</th>
-                            <th>Profile Picture</th>
-                            <th>Registration Date</th>
-                            <th>Account Status</th>
-                            <th>Faculty</th>
-                            <th>Role</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {userData ? (
-                            <tr>
-                                <td>{userData.full_name}</td>
-                                <td>{userData.email}</td>
-                                <td>{userData.dob}</td>
-                                <td>{userData.phone_number}</td>
-                                <td>{userData.gender ? 'Male' : 'Female'}</td>
-                                <td>{userData.profile_picture}</td>
-                                <td>{userData.registration_date}</td>
-                                <td>{userData.account_status ? 'Active' : 'Inactive'}</td>
-                                <td>{userData.faculty}</td>
-                                <td>{userData.role}</td>
-                            </tr>
-                        ) : (
-                            <tr>
-                                <td colSpan="10">Loading...</td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
+  return (
+    <div className="single">
+      <Sidebar />
+      <div className="singleContainer">
+        <Navbar />
+        <div className="top">
+          <div className="left">
+            <div className="editButton">Edit</div>
+            <h1 className="title">Information</h1>
+            <div className="item">
+              <img
+                src={userProfile.profie_picture}
+                alt=""
+                className="itemImg"
+              />
+              <div className="details">
+                <h1 className="itemTitle">{userProfile.full_name}</h1>
+                <div className="detailItem">
+                  <span className="itemKey">Email:</span>
+                  <span className="itemValue">{userProfile.email}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Password:</span>
+                  <span className="itemValue">{userProfile.password}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">DOB: </span>
+                  <span className="itemValue">{userProfile.dob}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Phone Number:</span>
+                  <span className="itemValue">{userProfile.phone_number}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Gender:</span>
+                  <span className="itemValue">{userProfile.gender ? 'Male' : 'Female'}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Registration Date:</span>
+                  <span className="itemValue">{userProfile.registration_date}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Account Status:</span>
+                  <span className="itemValue">{userProfile.account_status ? 'Active' : 'Inactive'}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Faculty:</span>
+                  <span className="itemValue">{userProfile.account_status ? 'Active' : 'Inactive'}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Role:</span>
+                  <span className="itemValue">{userProfile.role}</span>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Single;

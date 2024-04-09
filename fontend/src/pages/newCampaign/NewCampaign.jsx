@@ -5,31 +5,54 @@ import { useState } from "react";
 import DateTime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 
-const NewCampaign = ({ title }) => {
-  const [text, setText] = useState('Initial text');
-
-  const handleTextChange = (event) => {
-    setText(event.target.value);
-  };
-
-  const [StartTime, setStartTime] = useState(null);
+const NewCampaign = ({ }) => {
+  const [campaignName, setCampaignName] = useState('');
+  const [startTime, setStartTime] = useState(null);
   const [closureDate, setClosureDate] = useState(null);
   const [finalClosureDate, setFinalClosureDate] = useState(null);
+  const [department, setDepartment] = useState('');
 
-  const handleStartTime = (newDateTime) => {
-    setStartTime(newDateTime);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    switch (name) {
+      case 'campaignName':
+        setCampaignName(value);
+        break;
+      case 'department':
+        setDepartment(value);
+        break;
+      default:
+        break;
+    }
   };
 
-  const handleClosureDate = (newDateTime) => {
-    setClosureDate(newDateTime);
+  const handleDateTimeChange = (name, newDateTime) => {
+    switch (name) {
+      case 'startTime':
+        setStartTime(newDateTime);
+        break;
+      case 'closureDate':
+        setClosureDate(newDateTime);
+        break;
+      case 'finalClosureDate':
+        setFinalClosureDate(newDateTime);
+        break;
+      default:
+        break;
+    }
   };
 
-  const handleFinalClosureDate = (newDateTime) => {
-    setFinalClosureDate(newDateTime);
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission
+    const campaignData = {
+      campaignName: campaignName,
+      startTime: startTime,
+      closureDate: closureDate,
+      finalClosureDate: finalClosureDate,
+      department: department
+    };
+    console.log("New campaign data:", campaignData);
   };
 
   return (
@@ -44,48 +67,55 @@ const NewCampaign = ({ title }) => {
           <div className="right">
             <form onSubmit={handleSubmit}>
               <div className="formInput">
-                <label htmlFor="username">Name:</label>
+                <label htmlFor="campaignName">Campaign Name:</label>
                 <input
                   type="text"
-                  id="username"
-                  name="username"
-                  onChange={handleTextChange}
+                  id="campaignName"
+                  name="campaignName"
+                  value={campaignName}
+                  onChange={handleInputChange}
+                  required
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="email">Start Time:</label>
+                <label htmlFor="startTime">Start Time:</label>
                 <DateTime
-                  id="final-closure-date"
-                  value={StartTime}
-                  onChange={handleStartTime}
+                  id="startTime"
+                  value={startTime}
+                  onChange={(newDateTime) => handleDateTimeChange('startTime', newDateTime)}
+                  required
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="username">Closure Date:</label>
+                <label htmlFor="closureDate">Closure Date:</label>
                 <DateTime
-                  id="final-closure-date"
+                  id="closureDate"
                   value={closureDate}
-                  onChange={handleClosureDate}
+                  onChange={(newDateTime) => handleDateTimeChange('closureDate', newDateTime)}
+                  required
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="username">Final Closure Date:</label>
+                <label htmlFor="finalClosureDate">Final Closure Date:</label>
                 <DateTime
-                  id="final-closure-date"
+                  id="finalClosureDate"
                   value={finalClosureDate}
-                  onChange={handleFinalClosureDate}
+                  onChange={(newDateTime) => handleDateTimeChange('finalClosureDate', newDateTime)}
+                  required
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="username">Department:</label>
+                <label htmlFor="department">Department:</label>
                 <input
                   type="text"
-                  id="username"
-                  name="username"
-                  onChange={handleTextChange}
+                  id="department"
+                  name="department"
+                  value={department}
+                  onChange={handleInputChange}
+                  required
                 />
               </div>
-                <button type="submit">Save</button>
+              <button type="submit">Save</button>
             </form>
           </div>
         </div>
