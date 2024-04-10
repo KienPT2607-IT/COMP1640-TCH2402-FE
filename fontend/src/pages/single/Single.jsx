@@ -1,24 +1,22 @@
+import React, { useState, useEffect } from "react";
 import "./single.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import { useState, useEffect } from "react";
-import userApi from "../../api/userApi";
+import { Link } from "react-router-dom";
 
-const Single = () => {
+const Single = ({ location }) => {
   const [userProfile, setUserProfile] = useState({});
 
   useEffect(() => {
-    const fetchUserSingle = async () => {
-      try {
-        const response = await userApi.getDetail();
-        console.log(response);
-        setUserProfile(response.data)
-      } catch (error) {
-        console.log('Fail to fetch', error)
-      }
+    // Lấy thông tin người dùng từ sessionStorage 
+    const storedUserProfile = JSON.parse(sessionStorage.getItem("user"));
+    const userProfileFromLocation = location?.state?.userProfile; // Kiểm tra location tồn tại trước khi truy cập state
+    if (userProfileFromLocation) {
+      setUserProfile(userProfileFromLocation);
+    } else if (storedUserProfile) {
+      setUserProfile(storedUserProfile);
     }
-    fetchUserSingle();
-  }, []);
+  }, [location]);
 
   return (
     <div className="single">
@@ -27,11 +25,19 @@ const Single = () => {
         <Navbar />
         <div className="top">
           <div className="left">
-            <div className="editButton">Edit</div>
+            <Link
+              to={{
+                pathname: "/users/edit",
+                state: { userProfile: userProfile },
+              }}
+              className="editButton"
+            >
+              Edit
+            </Link>
             <h1 className="title">Information</h1>
             <div className="item">
               <img
-                src={userProfile.profie_picture}
+                src={userProfile.profile_picture || "default-profile-picture-url"}
                 alt=""
                 className="itemImg"
               />
@@ -67,7 +73,7 @@ const Single = () => {
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Faculty:</span>
-                  <span className="itemValue">{userProfile.account_status ? 'Active' : 'Inactive'}</span>
+                  <span className="itemValue">{userProfile.faculty}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Role:</span>

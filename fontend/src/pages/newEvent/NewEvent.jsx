@@ -1,11 +1,11 @@
-import "./newCampaign.css";
+import "./newEvent.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { useState } from "react";
 import DateTime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 
-const NewCampaign = ({ }) => {
+const NewEvent = ({ }) => {
   const [campaignName, setCampaignName] = useState('');
   const [startTime, setStartTime] = useState(null);
   const [closureDate, setClosureDate] = useState(null);
@@ -61,13 +61,13 @@ const NewCampaign = ({ }) => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>Add Campaign</h1>
+          <h1>Add Event</h1>
         </div>
         <div className="bottom">
           <div className="right">
             <form onSubmit={handleSubmit}>
               <div className="formInput">
-                <label htmlFor="campaignName">Campaign Name:</label>
+                <label htmlFor="campaignName">Name:</label>
                 <input
                   type="text"
                   id="campaignName"
@@ -78,7 +78,16 @@ const NewCampaign = ({ }) => {
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="startTime">Start Time:</label>
+                <label htmlFor="startTime">Create Date:</label>
+                <DateTime
+                  id="startTime"
+                  value={startTime}
+                  onChange={(newDateTime) => handleDateTimeChange('startTime', newDateTime)}
+                  required
+                />
+              </div>
+              <div className="formInput">
+                <label htmlFor="startTime">Due Date:</label>
                 <DateTime
                   id="startTime"
                   value={startTime}
@@ -96,7 +105,7 @@ const NewCampaign = ({ }) => {
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="finalClosureDate">Final Closure Date:</label>
+                <label htmlFor="finalClosureDate">Is Enable</label>
                 <DateTime
                   id="finalClosureDate"
                   value={finalClosureDate}
@@ -105,7 +114,29 @@ const NewCampaign = ({ }) => {
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="department">Department:</label>
+                <label htmlFor="department">Last Update:</label>
+                <input
+                  type="text"
+                  id="department"
+                  name="department"
+                  value={department}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="formInput">
+                <label htmlFor="department">Create by:</label>
+                <input
+                  type="text"
+                  id="department"
+                  name="department"
+                  value={department}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="formInput">
+                <label htmlFor="department">Description:</label>
                 <input
                   type="text"
                   id="department"
@@ -124,4 +155,4 @@ const NewCampaign = ({ }) => {
   );
 };
 
-export default NewCampaign;
+export default NewEvent;

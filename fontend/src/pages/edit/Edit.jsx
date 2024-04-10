@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import "./edit.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
@@ -6,20 +7,14 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 
-const Edit = ({ userRows }) => {
-  const [selectedUser, setSelectedUser] = useState(null);
+const Edit = () => {
+  const { userProfile } = useParams();
+  const [selectedUser, setSelectedUser] = useState(userProfile || {});
   const [file, setFile] = useState("");
   const [selectedDate, setSelectedDate] = useState(null);
 
-  
   const handleDateChange = (date) => {
     setSelectedDate(date);
-  };
-
-  const handleUserClick = (userId) => {
-    const user = userRows.find((user) => user.id === userId);
-    setSelectedUser(user);
-
   };
 
   const handleChange = (e) => {
@@ -31,7 +26,7 @@ const Edit = ({ userRows }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
+    // Xử lý gửi dữ liệu người dùng đã chỉnh sửa đến server
     console.log("Updated user data:", selectedUser);
   };
 
@@ -74,27 +69,27 @@ const Edit = ({ userRows }) => {
                   type="text"
                   id="role"
                   name="role"
-                  value={selectedUser?.role || ""}
+                  value={selectedUser.role || ""}
                   onChange={handleChange}
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="department">Department:</label>
+                <label htmlFor="department">Faculty:</label>
                 <input
                   type="text"
                   id="department"
                   name="department"
-                  value={selectedUser?.department || ""}
+                  value={selectedUser.faculty || ""}
                   onChange={handleChange}
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="name">Name:</label>
+                <label htmlFor="name">Full Name:</label>
                 <input
                   type="text"
                   id="name"
                   name="name"
-                  value={selectedUser?.name || ""}
+                  value={selectedUser.name || ""}
                   onChange={handleChange}
                 />
               </div>
@@ -104,17 +99,17 @@ const Edit = ({ userRows }) => {
                   type="text"
                   id="email"
                   name="email"
-                  value={selectedUser?.email || ""}
+                  value={selectedUser.email || ""}
                   onChange={handleChange}
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="password">Password:</label>
+                <label htmlFor="password">Phone number:</label>
                 <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={selectedUser?.password || ""}
+                  type="string"
+                  id="phoneNumber"
+                  name="phone number"
+                  value={selectedUser.phone_number || ""}
                   onChange={handleChange}
                 />
               </div>

@@ -18,8 +18,8 @@ const userApi = {
         const url = `/users/delete/${userId}`;
         return apiClient.delete(url);
     },
-    getDetail: (id) => {
-        const url = `/users/${id}`;
+    getDetail: (userId) => {
+        const url = `/users/${userId}`;
         return axiosClient.get(url);
     }
 }

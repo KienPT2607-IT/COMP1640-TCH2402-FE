@@ -30,7 +30,9 @@ const LoginForm = () => {
         })
             .then(result => {
                 const token = result.data.token; // Giả svề từ API lử token được trả à `token`
-                sessionStorage.setItem('x-auth-token', token); // Lưu token vào local storage
+                sessionStorage.setItem('x-auth-token', token);
+                const userData = result.data.data; // Dữ liệu người dùng từ API
+                sessionStorage.setItem('user', JSON.stringify(userData)); // Lưu token vào local storage
                 // const { role } = result.data; // Giả sử API trả về vai trò của người dùng
                 const role = result.data.data.role;
 
@@ -39,7 +41,7 @@ const LoginForm = () => {
                     navigate('/'); // Chuyển hướng đến trang dashboard nếu là admin
                 } else if (role === 'Student') {
                     navigate('/event'); // Chuyển hướng đến trang event nếu là user
-                }else if (role === 'GuS est') {
+                }else if (role === 'Guest') {
                     navigate('/event'); // Chuyển hướng đến trang event nếu là user
                 }else if (role === 'Marketing Coordinator') {
                     navigate('/event'); // Chuyển hướng đến trang event nếu là user
