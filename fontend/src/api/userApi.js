@@ -21,6 +21,10 @@ const userApi = {
     getDetail: (userId) => {
         const url = `/users/${userId}`;
         return axiosClient.get(url);
+    },
+    putUserUpdate: () => {
+        const url = 'users/update';
+        return axiosClient.put();
     }
 }
 

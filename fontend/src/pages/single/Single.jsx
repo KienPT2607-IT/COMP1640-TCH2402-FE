@@ -1,22 +1,19 @@
-import React, { useState, useEffect } from "react";
 import "./single.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const Single = ({ location }) => {
+const Single = () => {
   const [userProfile, setUserProfile] = useState({});
 
   useEffect(() => {
-    // Lấy thông tin người dùng từ sessionStorage 
-    const storedUserProfile = JSON.parse(sessionStorage.getItem("user"));
-    const userProfileFromLocation = location?.state?.userProfile; // Kiểm tra location tồn tại trước khi truy cập state
-    if (userProfileFromLocation) {
-      setUserProfile(userProfileFromLocation);
-    } else if (storedUserProfile) {
+    // Lấy thông tin người dùng từ sessionStorage
+    const storedUserProfile = JSON.parse(sessionStorage.getItem('user'));
+    if (storedUserProfile) {
       setUserProfile(storedUserProfile);
     }
-  }, [location]);
+  }, []);
 
   return (
     <div className="single">
@@ -25,19 +22,11 @@ const Single = ({ location }) => {
         <Navbar />
         <div className="top">
           <div className="left">
-            <Link
-              to={{
-                pathname: "/users/edit",
-                state: { userProfile: userProfile },
-              }}
-              className="editButton"
-            >
-              Edit
-            </Link>
+            <Link to="/users/edit" className="editButton">Edit</Link>
             <h1 className="title">Information</h1>
             <div className="item">
               <img
-                src={userProfile.profile_picture || "default-profile-picture-url"}
+                src={userProfile.profie_picture}
                 alt=""
                 className="itemImg"
               />
@@ -46,10 +35,6 @@ const Single = ({ location }) => {
                 <div className="detailItem">
                   <span className="itemKey">Email:</span>
                   <span className="itemValue">{userProfile.email}</span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Password:</span>
-                  <span className="itemValue">{userProfile.password}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">DOB: </span>

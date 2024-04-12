@@ -44,6 +44,12 @@ function Datatable() {
   return (
     <div className="datatable-container">
       <h1>User Data</h1>
+      <div className="datatableTitle">
+        Add New User
+        <Link to="/users/new" className="link">
+          Add New
+        </Link>
+      </div>
       <table className="datatable">
         <thead>
           <tr>
@@ -68,7 +74,7 @@ function Datatable() {
               <td>{user.dob}</td>
               <td>{user.phone_number}</td>
               <td>{user.gender ? 'Male' : 'Female'}</td>
-              <td>{user.profile_picture}</td>
+              <td><img style={{width: '50px'}} alt='' src={user.profile_picture }></img></td>
               <td>{user.registration_date}</td>
               <td>{user.account_status ? 'Active' : 'Inactive'}</td>
               <td>{user.faculty}</td>

@@ -1,33 +1,51 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import "./edit.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
+import userApi from "../../api/userApi";
 
 const Edit = () => {
-  const { userProfile } = useParams();
-  const [selectedUser, setSelectedUser] = useState(userProfile || {});
+  const [userProfile, setUserProfile] = useState({});
   const [file, setFile] = useState("");
-  const [selectedDate, setSelectedDate] = useState(null);
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
+  useEffect(() => {
+    const storedUserProfile = JSON.parse(sessionStorage.getItem("user"));
+    setUserProfile(storedUserProfile);
+  }, []);
 
   const handleChange = (e) => {
-    setSelectedUser({
-      ...selectedUser,
+    setUserProfile({
+      ...userProfile,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleFacultyChange = (e) => {
+    setUserProfile({
+      ...userProfile,
+      faculty: e.target.value,
+    });
+  };
+
+  const handleDateChange = (value) => {
+    setUserProfile({
+      ...userProfile,
+      dob: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Xử lý gửi dữ liệu người dùng đã chỉnh sửa đến server
-    console.log("Updated user data:", selectedUser);
+    try {
+      // Call API to update user profile
+      await userApi.putUserUpdate(userProfile);
+      console.log("User profile updated successfully");
+    } catch (error) {
+      console.error("Failed to update user profile:", error);
+    }
   };
 
   return (
@@ -69,27 +87,29 @@ const Edit = () => {
                   type="text"
                   id="role"
                   name="role"
-                  value={selectedUser.role || ""}
+                  disabled
+                  value={userProfile.role || ""}
                   onChange={handleChange}
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="department">Faculty:</label>
+                <label htmlFor="faculty">Faculty:</label>
                 <input
                   type="text"
-                  id="department"
-                  name="department"
-                  value={selectedUser.faculty || ""}
-                  onChange={handleChange}
+                  id="faculty"
+                  name="faculty"
+                  disabled
+                  value={userProfile.faculty }
+                  onChange={handleFacultyChange}
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="name">Full Name:</label>
+                <label htmlFor="full_name">Full Name:</label>
                 <input
                   type="text"
-                  id="name"
-                  name="name"
-                  value={selectedUser.name || ""}
+                  id="full_name"
+                  name="full_name"
+                  value={userProfile.full_name || ""}
                   onChange={handleChange}
                 />
               </div>
@@ -99,17 +119,18 @@ const Edit = () => {
                   type="text"
                   id="email"
                   name="email"
-                  value={selectedUser.email || ""}
+                  disabled
+                  value={userProfile.email || ""}
                   onChange={handleChange}
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="password">Phone number:</label>
+                <label htmlFor="phoneNumber">Phone number:</label>
                 <input
                   type="string"
                   id="phoneNumber"
-                  name="phone number"
-                  value={selectedUser.phone_number || ""}
+                  name="phone_number"
+                  value={userProfile.phone_number || ""}
                   onChange={handleChange}
                 />
               </div>
@@ -118,7 +139,7 @@ const Edit = () => {
                 <DatePicker
                   id="dob"
                   name="dob"
-                  selected={selectedDate}
+                  selected={userProfile.dob}
                   onChange={handleDateChange}
                   dateFormat="dd/MM/yyyy"
                 />
