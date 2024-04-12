@@ -41,7 +41,7 @@ const New = ({ }) => {
   ];
 
 
-  const [file, setFile] = useState("");
+  const [picture_profile, setFile] = useState("");
   const [selectedUser, setSelectedUser] = useState([]);
 
   const [email, setEmail] = useState('');
@@ -109,7 +109,7 @@ const New = ({ }) => {
   }
 
   return (
-    <div className="new">
+    <div className = "new">
       <Toaster />
       <Sidebar />
       <div className="newContainer">
@@ -123,8 +123,8 @@ const New = ({ }) => {
               <img
                 className="userImage"
                 src={
-                  file
-                    ? URL.createObjectURL(file)
+                  picture_profile
+                    ? URL.createObjectURL(picture_profile)
                     : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
                 }
                 alt=""
@@ -139,7 +139,7 @@ const New = ({ }) => {
               onChange={(e) => setFile(e.target.files[0])}
               style={{ display: "none" }}
             />
-          </div>
+          </div> 
           <div className="right">
             <form onSubmit={submitForm}>
               <div className="formInput">

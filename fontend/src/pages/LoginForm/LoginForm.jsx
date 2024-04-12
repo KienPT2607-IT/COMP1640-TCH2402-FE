@@ -29,10 +29,12 @@ const LoginForm = () => {
             password: password
         })
             .then(result => {
-                const token = result.data.token; // Giả sử token được trả về từ API là `token`
-                sessionStorage.setItem('x-auth-token', token); // Lưu token vào local storage
+                const token = result.data.token; // Giả svề từ API lử token được trả à `token`
+                sessionStorage.setItem('x-auth-token', token);
+                const userData = result.data.data; // Dữ liệu người dùng từ API
+                sessionStorage.setItem('user', JSON.stringify(userData)); // Lưu token vào local storage
                 // const { role } = result.data; // Giả sử API trả về vai trò của người dùng
-                const role = result['data']["data"]["role"].name;
+                const role = result.data.data.role;
 
                 // console.log(result['data']["data"]["role"].name) // Sử dụng giả định, bạn cần thay đổi thành lấy từ dữ liệu API
                 if (role === 'Admin') {

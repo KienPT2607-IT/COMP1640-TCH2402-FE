@@ -1,5 +1,6 @@
 import "./cardEvent.css";
 import { MoreVert } from "@material-ui/icons";
+import { Link } from "react-router-dom";
 
 export default function CardEvent({ event }) {
 
@@ -13,9 +14,9 @@ export default function CardEvent({ event }) {
             </span>
           </div>
           <div>
-              <span className="postDate">Start Date: {event.create_date}</span>
-              <span className="postDate">Final Date: {event.due_date}</span>
-            </div>
+            <span className="postDate">Start Date: {event.create_date}</span>
+            <span className="postDate">Final Date: {event.due_date}</span>
+          </div>
           <div className="postTopRight">
             <MoreVert />
           </div>
@@ -25,7 +26,14 @@ export default function CardEvent({ event }) {
         </div>
 
         <form>
-          <button className="btnPost" alt="">Detail</button>
+          <Link
+            to={{
+              pathname: "/contribution"
+            }}
+            className="editButton"
+          >
+            Detail
+          </Link>
         </form>
 
       </div>

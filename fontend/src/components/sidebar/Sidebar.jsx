@@ -33,7 +33,7 @@ const Sidebar = () => {
           <Link to="/campaign" style={{ textDecoration: "none" }}>
             <li>
               <CampaignIcon className="icon" />
-              <span>Campaign</span>
+              <span>Faculty</span>
             </li>
           </Link>
           <Link to="/event" style={{ textDecoration: "none" }}>
@@ -52,7 +52,7 @@ const Sidebar = () => {
           <Link to="/campaigns" style={{ textDecoration: "none" }}>
             <li>
               <NewspaperIcon className="icon" />
-              <span>Campaign</span>
+              <span>Event Admin</span>
             </li>
           </Link>
           <Link to="/departments" style={{ textDecoration: "none" }}>

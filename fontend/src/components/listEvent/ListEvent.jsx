@@ -5,27 +5,22 @@ import { campaignRows } from "../../dataCampaign";
 import CardEvent from "../cardEvent/CardEvent";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import eventApi from '../../api/eventApi';
 
 const ListEvent = () => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem('x-auth-token');
-    console.log("Token:", token);
-    if (token) {
-      const config = {
-        headers: {
-          'x-auth-token': token
-        }
-      };
-      console.log("Config:", config);
-      axios.get('https://comp1640-tch2402-be.onrender.com/events', config) // Sửa URL endpoint để phù hợp với endpoint của bạn
-        .then(response => {
-          console.log("Response:", response.data.data); // Dữ liệu trả về từ server được lưu trong response.data.data
-          setEvents(response.data.data); // Lưu dữ liệu người dùng vào state
-        })
-        .catch(error => console.error("Error:", error));
+    const fetchUsers = async () => {
+      try {
+        const response = await eventApi.getAll();
+        console.log(response);
+        setEvents(response.data)
+      } catch (error) {
+        console.log('Fail to fetch', error)
+      }
     }
+    fetchUsers();
   }, []);
 
   return (

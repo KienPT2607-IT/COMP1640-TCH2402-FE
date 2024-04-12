@@ -3,8 +3,8 @@ import axios from 'axios';
 import './datatable.css';
 import { Link } from 'react-router-dom'; // Thêm thư viện Link từ react-router-dom
 import userApi from '../../api/userApi';
-function Datatable() {
 
+function Datatable() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -44,6 +44,12 @@ function Datatable() {
   return (
     <div className="datatable-container">
       <h1>User Data</h1>
+      <div className="datatableTitle">
+        Add New User
+        <Link to="/users/new" className="link">
+          Add New
+        </Link>
+      </div>
       <table className="datatable">
         <thead>
           <tr>
@@ -57,8 +63,7 @@ function Datatable() {
             <th>Account Status</th>
             <th>Faculty</th>
             <th>Role</th>
-            <th>Edit</th>
-            <th>Delete</th>
+
           </tr>
         </thead>
         <tbody>
@@ -69,14 +74,11 @@ function Datatable() {
               <td>{user.dob}</td>
               <td>{user.phone_number}</td>
               <td>{user.gender ? 'Male' : 'Female'}</td>
-              <td>{user.profile_picture}</td>
+              <td><img style={{width: '50px'}} alt='' src={user.profile_picture }></img></td>
               <td>{user.registration_date}</td>
               <td>{user.account_status ? 'Active' : 'Inactive'}</td>
               <td>{user.faculty}</td>
               <td>{user.role}</td>
-              <td><Link to={`/edit/${user._id}`} className="edit-button">Edit</Link></td>
-              <td><Link to={`/delete/${user._id}`} className="delete-button">Delete</Link></td>
-              <td><Link to={`/users/${user._id}`} className="view-button">View</Link></td>
             </tr>
           ))}
         </tbody>
