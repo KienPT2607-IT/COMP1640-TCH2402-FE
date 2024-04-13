@@ -3,20 +3,37 @@ import "./single.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
-const Single = ({ location }) => {
+const Single = () => {
   const [userProfile, setUserProfile] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Lấy thông tin người dùng từ sessionStorage 
-    const storedUserProfile = JSON.parse(sessionStorage.getItem("user"));
-    const userProfileFromLocation = location?.state?.userProfile; // Kiểm tra location tồn tại trước khi truy cập state
-    if (userProfileFromLocation) {
-      setUserProfile(userProfileFromLocation);
-    } else if (storedUserProfile) {
-      setUserProfile(storedUserProfile);
+    const token = sessionStorage.getItem('x-auth-token');
+    if (token) {
+      axios.get('http://localhost:3000/users/profile', {
+        headers: {
+          'x-auth-token': token
+        }
+      })
+      .then(response => {
+        setUserProfile(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+        setLoading(false);
+      });
+    } else {
+      console.error('Token not found');
+      setLoading(false);
     }
-  }, [location]);
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="single">
@@ -48,10 +65,6 @@ const Single = ({ location }) => {
                   <span className="itemValue">{userProfile.email}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Password:</span>
-                  <span className="itemValue">{userProfile.password}</span>
-                </div>
-                <div className="detailItem">
                   <span className="itemKey">DOB: </span>
                   <span className="itemValue">{userProfile.dob}</span>
                 </div>
@@ -65,7 +78,7 @@ const Single = ({ location }) => {
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Registration Date:</span>
-                  <span className="itemValue">{userProfile.registration_date}</span>
+                  <span className="itemValue">{userProfile.registration_date  }</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Account Status:</span>
