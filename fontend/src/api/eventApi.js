@@ -9,15 +9,15 @@ const eventApi = {
         return apiClient.get(url);
     },
     create: (data) => {
-        const url = '/events/create-user';
-        return apiClient.post(url, data);
-    },
-    // update: (data) => {
-    //     const url = `/users/update/${data.userId}`;
+      const url = '/events/createEvent';
+      return apiClient.post(url, data);
+  },
+    // update: (data) => {    //     const url = `/events/updateEvent/${data.}`;
     //     return axiosClient.put(url, data)
     // },
     // delete(userId) {
-
+    //     const url = `/events/delete/${userId}`;
+    //     return apiClient.delete(url);
     // },
     // getDetail: (userId) => {
     //     const url = `/users/view/${userId}`;

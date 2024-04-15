@@ -39,6 +39,21 @@ function Datatable() {
   //   }
   // }, []);
 
+  const handleDelete = async (id) => {
+    const isConfirmed = window.confirm('Are you sure you want to delete this user?');
+  
+    if (isConfirmed) {
+      try {
+        await userApi.delete(id);
+        
+        // If delete is successful, update the state to remove the deleted user
+        setUsers(users.filter(user => user._id !== id));
+        console.log(`Successfully deleted user with id: ${id}`);
+      } catch (error) {
+        console.log('Failed to delete user:', error);
+      }
+    }
+  };
 
 
   return (
@@ -57,6 +72,7 @@ function Datatable() {
             <th>Account Status</th>
             <th>Faculty</th>
             <th>Role</th>
+            <th>Action</th> {/* New Action header */}
 
           </tr>
         </thead>
@@ -73,6 +89,16 @@ function Datatable() {
               <td>{user.account_status ? 'Active' : 'Inactive'}</td>
               <td>{user.faculty}</td>
               <td>{user.role}</td>
+              <td>
+                {/* Edit button */}
+                <button className="edit-button" onClick={() => handleEdit(user._id)}>
+                  Edit
+                </button>
+                {/* Delete button */}
+                <button className="delete-button" onClick={() => handleDelete(user._id)}>
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

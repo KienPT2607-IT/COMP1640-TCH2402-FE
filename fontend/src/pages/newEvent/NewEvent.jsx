@@ -2,24 +2,43 @@ import "./newEvent.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { useState } from "react";
+import eventApi from "../../api/eventApi"
 import DateTime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const NewEvent = ({ }) => {
-  const [campaignName, setCampaignName] = useState('');
-  const [startTime, setStartTime] = useState(null);
-  const [closureDate, setClosureDate] = useState(null);
-  const [finalClosureDate, setFinalClosureDate] = useState(null);
-  const [department, setDepartment] = useState('');
+  const showToastMessageSuccess = (mesage) => {
+    toast.success(mesage, {
+      position: "top-right",
+      reverseOrder: true,
+      duration: 6000,
+    });
+  };
+
+  const showToastMessagFail = (mesage) => {
+    toast.error(mesage, {
+      position: "top-right",
+      reverseOrder: true,
+      duration: 6000,
+    });
+  };
+  const [name, setName] = useState('');
+  const [create_date, setCreateDate] = useState(new Date());
+  const [due_date, setDueDate] = useState('');
+  const [closure_date, setClosureDate] = useState('');
+  const [description, setDescription] = useState('');
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
-      case 'campaignName':
-        setCampaignName(value);
+      case 'name':
+        setName(value);
         break;
-      case 'department':
-        setDepartment(value);
+      case 'description':
+        setDescription(value);
         break;
       default:
         break;
@@ -28,35 +47,51 @@ const NewEvent = ({ }) => {
 
   const handleDateTimeChange = (name, newDateTime) => {
     switch (name) {
-      case 'startTime':
-        setStartTime(newDateTime);
+      case 'create_date':
+        setCreateDate(newDateTime);
         break;
-      case 'closureDate':
+      case 'due_date':
+        setDueDate(newDateTime);
+        break;
+      case 'closure_date':
         setClosureDate(newDateTime);
-        break;
-      case 'finalClosureDate':
-        setFinalClosureDate(newDateTime);
         break;
       default:
         break;
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit  = async (e) => {
     e.preventDefault();
-    // Handle form submission
-    const campaignData = {
-      campaignName: campaignName,
-      startTime: startTime,
-      closureDate: closureDate,
-      finalClosureDate: finalClosureDate,
-      department: department
-    };
-    console.log("New campaign data:", campaignData);
-  };
+  if (due_date <= create_date) {
+    showToastMessagFail("Due Date must be after Create Date");
+    return;
+  }
+
+  if (closure_date <= due_date) {
+    showToastMessagFail("Closure Date must be after Due Date");
+    return;
+  }
+    try {
+      let data = {
+        "name": name,
+        "create_date": create_date,
+        "due_date": due_date,
+        "closure_date": closure_date,
+        "description": description,
+              }
+      const response = await eventApi.create(data);
+      console.log(response);
+      showToastMessageSuccess(response.message);
+    } catch (error) {
+      console.log('Fail to fetch', error)
+      showToastMessagFail(error.message);
+    }
+  }
 
   return (
     <div className="new">
+            <Toaster />
       <Sidebar />
       <div className="newContainer">
         <Navbar />
@@ -67,81 +102,50 @@ const NewEvent = ({ }) => {
           <div className="right">
             <form onSubmit={handleSubmit}>
               <div className="formInput">
-                <label htmlFor="campaignName">Name:</label>
+                <label htmlFor="name">Name:</label>
                 <input
                   type="text"
-                  id="campaignName"
-                  name="campaignName"
-                  value={campaignName}
+                  id="name"
+                  name="name"
+                  value={name}
                   onChange={handleInputChange}
                   required
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="startTime">Create Date:</label>
+                <label htmlFor="create_date">Create Date:</label>
                 <DateTime
-                  id="startTime"
-                  value={startTime}
-                  onChange={(newDateTime) => handleDateTimeChange('startTime', newDateTime)}
+                  id="create_date"
+                  value={create_date}
+                  onChange={(newDateTime) => handleDateTimeChange('create_date', newDateTime)}
                   required
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="startTime">Due Date:</label>
+                <label htmlFor="due_date">Due Date:</label>
                 <DateTime
-                  id="startTime"
-                  value={startTime}
-                  onChange={(newDateTime) => handleDateTimeChange('startTime', newDateTime)}
+                  id="due_date"
+                  value={due_date}
+                  onChange={(newDateTime) => handleDateTimeChange('due_date', newDateTime)}
                   required
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="closureDate">Closure Date:</label>
+                <label htmlFor="closure_date">Closure Date:</label>
                 <DateTime
-                  id="closureDate"
-                  value={closureDate}
-                  onChange={(newDateTime) => handleDateTimeChange('closureDate', newDateTime)}
+                  id="closure_date"
+                  value={closure_date}
+                  onChange={(newDateTime) => handleDateTimeChange('closure_date', newDateTime)}
                   required
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="finalClosureDate">Is Enable</label>
-                <DateTime
-                  id="finalClosureDate"
-                  value={finalClosureDate}
-                  onChange={(newDateTime) => handleDateTimeChange('finalClosureDate', newDateTime)}
-                  required
-                />
-              </div>
-              <div className="formInput">
-                <label htmlFor="department">Last Update:</label>
+                <label htmlFor="description">Description:</label>
                 <input
                   type="text"
-                  id="department"
-                  name="department"
-                  value={department}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className="formInput">
-                <label htmlFor="department">Create by:</label>
-                <input
-                  type="text"
-                  id="department"
-                  name="department"
-                  value={department}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className="formInput">
-                <label htmlFor="department">Description:</label>
-                <input
-                  type="text"
-                  id="department"
-                  name="department"
-                  value={department}
+                  id="description"
+                  name="description"
+                  value={description}
                   onChange={handleInputChange}
                   required
                 />
