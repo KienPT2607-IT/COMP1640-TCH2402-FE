@@ -1,9 +1,11 @@
 import "./post.css";
 import { MoreVert } from "@material-ui/icons";
 import { Users } from "../../dummyData";
+import Comments from "../comments/Comments";
 import { useState } from "react";
 
 export default function Post({ post }) {
+  const [commentOpen, setCommentOpen] = useState(false);
   const [like,setLike] = useState(post.like)
   const [comment,setComment] = useState(post.comment)
   const [commentText, setCommentText] = useState(""); // State for comment text
@@ -64,23 +66,10 @@ export default function Post({ post }) {
             <span className="postLikeCounter">{like} people like it</span>
           </div>
           <div className="postBottomRight">
-            <span className="postCommentText">{post.comment} comments</span>
+            <span className="postCommentText"  onClick={() => setCommentOpen(!commentOpen)}>{post.comment} comments</span>
           </div>
         </div>
-        <form>
-        <input
-            type="text"
-            className="commentInput"
-            placeholder="Add a comment..."
-            value={commentText}
-            onChange={handleCommentChange}
-          />
-            <button
-            className="btnPost"
-            onClick={handleCommentSubmit}
-            alt=""
-            >post</button>
-            </form>
+        {commentOpen && <Comments postId={post.id} />}
                     
       </div>
     </div>

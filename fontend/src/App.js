@@ -10,7 +10,7 @@ import ListDepartment from "./pages/listDepartment/ListDepartment";
 import Campaign from "./pages/campaign/Campaign";
 import Single from "./pages/single/Single";
 import Edit from "./pages/edit/Edit";
-import NewCampaign from "./pages/newCampaign/NewCampaign";
+import NewEvent from "./pages/newEvent/NewEvent";
 import Detail from "./pages/viewDetail/Detail";
 import Event from "./pages/event/Event";
 import New from "./pages/new/New";
@@ -43,12 +43,14 @@ function App() {
             </Route>
             <Route path="event">
               <Route index element={<Event />} />
-              
+              <Route
+                path="newevent"
+                element={<NewEvent />}
+              />
             </Route>
             <Route path="users">
               <Route index element={<List />} />
-              <Route path="view/:userId" element={<Detail/>} />
-              <Route path="edit/:userId" element={<Edit />} />
+              <Route path="edit" element={<Edit />} />
               <Route
                 path="new"
                 element={<New />}
@@ -62,10 +64,7 @@ function App() {
               <Route index element={<ListCampaign />} />
               <Route path="edit/:id" element={<EditCampaign />} />
               <Route path="view/:campaignId" element={<ViewDetailCampaign />} />
-              <Route
-                path="newcampaign"
-                element={<NewCampaign />}
-              />
+  
             </Route>
             <Route path="departments">
               <Route index element={<ListDepartment />} />

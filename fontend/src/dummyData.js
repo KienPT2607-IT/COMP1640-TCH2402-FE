@@ -53,5 +53,21 @@ export const Posts = [
     like: 7,
     comment: 3,
   },
+];
+
+export const Commentss = [
+    {
+      id: 1,
+      desc: "comment bai 2",
+      userId: 1,
+      postId: 2
+    },
+    {
+      id: 2,
+      desc: "comment bai 1",
+      userId: 2,
+      postId: 1,
+    },
+    
   
 ];
