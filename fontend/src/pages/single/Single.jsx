@@ -1,17 +1,44 @@
+import React, { useState, useEffect } from "react";
 import "./single.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 const Single = () => {
   const [userProfile, setUserProfile] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Lấy thông tin người dùng từ sessionStorage
-    const storedUserProfile = JSON.parse(sessionStorage.getItem('user'));
-    if (storedUserProfile) {
-      setUserProfile(storedUserProfile);
+    const token = sessionStorage.getItem('x-auth-token');
+    if (token) {
+      axios.get('https://comp1640-tch2402-be.onrender.com/users/profile', {
+        headers: {
+          'x-auth-token': token
+        }
+      })
+      .then(response => {
+        setUserProfile(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+        setLoading(false);
+        if (error.response && error.response.status === 500) {
+          // Handle 500 Internal Server Error
+          alert('There was an error fetching the user data. Please try again later.');
+        } else if (error.response && error.response.status === 401) {
+          // Handle 401 Unauthorized
+          alert('Unauthorized access. Please login again.');
+        } else {
+          // Handle other errors
+          alert('An error occurred while fetching the user data.');
+        }
+      });
+    } else {
+      console.error('Token not found');
+      setLoading(false);
+      alert('Token not found. Please login again.');
     }
   }, []);
 
@@ -22,11 +49,19 @@ const Single = () => {
         <Navbar />
         <div className="top">
           <div className="left">
-            <Link to="/users/edit" className="editButton">Edit</Link>
+            <Link
+              to={{
+                pathname: "/users/edit",
+                state: { userProfile: userProfile },
+              }}
+              className="editButton"
+            >
+              Edit
+            </Link>
             <h1 className="title">Information</h1>
             <div className="item">
               <img
-                src={userProfile.profie_picture}
+                src={userProfile.profile_picture || "default-profile-picture-url"}
                 alt=""
                 className="itemImg"
               />
@@ -50,7 +85,7 @@ const Single = () => {
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Registration Date:</span>
-                  <span className="itemValue">{userProfile.registration_date}</span>
+                  <span className="itemValue">{userProfile.registration_date  }</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Account Status:</span>

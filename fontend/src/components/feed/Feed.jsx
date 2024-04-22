@@ -6,30 +6,45 @@ import { Posts } from "../../dummyData";
 import { useEffect, useState } from "react";
 import contributionApi from "../../api/contributionApi";
 
-const Feed = () => {
-  const { feed, setFeed } = useState([]);
+const Feed = ({eventId}) => {
+  const [contribution, setContribution]  = useState([]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
+    const fetchContributions = async () => {
+      try{
         const response = await contributionApi.getAll(eventId);
-        console.log(response);
-        setUsers(response.data)
-      } catch (error) {
+
+        const mockdata = response.data.map(item => {
+          return {
+            id: item._id,
+            desc: item.content,
+            uploads: item.uploads,
+            date: item.submission_date,
+            like: item.like_count,
+            dislike: item.dislike_count,
+            contributorFullName: item.contributor.full_name,
+            contributorProfilePicture: item.contributor.profile_picture,
+            comment: 15
+          }
+        })
+
+        console.log('mockdata', mockdata);
+
+        setContribution(mockdata)
+
+      }catch (error) {
         console.log('Fail to fetch', error)
       }
     }
-    fetchUsers();
-  }, []);
-
+    fetchContributions();
+  }, [eventId]);
 
   return (
     <div className="feed">
       <div className="feedWrapper">
-        <Share />
-
-        {Posts.map((p) => (
-          <Post key={p.id} post={p} />
+      <Share />
+        {contribution.length > 0 && contribution.map((p) => (
+          <Post key={p.id} post={p} eventId={eventId}/>
         ))}
       </div>
     </div>

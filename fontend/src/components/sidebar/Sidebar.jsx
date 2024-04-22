@@ -13,6 +13,13 @@ import { useContext } from "react";
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
+
+  const handleLogout = () => {
+    // Remove token from local storage
+    sessionStorage.removeItem("x-auth-token");
+    sessionStorage.removeItem("user");
+  };
+
   return (
     <div className="sidebar">
       <div className="top">
@@ -68,10 +75,13 @@ const Sidebar = () => {
               <span>Profile</span>
             </li>
           </Link>
-          <li>
-            <ExitToAppIcon className="icon" />
-            <span>Logout</span>
-          </li>
+          <Link to="/login" style={{ textDecoration: "none" }}>
+            <li onClick={handleLogout} style={{ cursor: "pointer" }}>
+              <ExitToAppIcon className="icon" />
+              <span>Logout</span>
+            </li>
+          </Link>
+
         </ul>
       </div>
       <div className="bottom">

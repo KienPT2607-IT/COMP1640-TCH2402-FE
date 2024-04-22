@@ -9,7 +9,7 @@ const eventApi = {
         return apiClient.get(url);
     },
     create: (data) => {
-        const url = '/events/create-user';
+        const url = '/events/createEvent';
         return apiClient.post(url, data);
     },
     // update: (data) => {

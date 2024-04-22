@@ -4,14 +4,13 @@ import queryString from 'query-string';
 const getToken = () => {
     const token = sessionStorage.getItem('x-auth-token');
     console.log('Token: ', token);
-    return token;
+    return token; 
 };
 
 const axiosClient = axios.create({
     baseURL: 'https://comp1640-tch2402-be.onrender.com',
     headers: {
-        'content-type': 'application/json',
-        'x-auth-token' : getToken(),
+        'content-type': 'application/json'
     },
     paramsSerializer: params => queryString.stringify(params),
 });
@@ -21,6 +20,7 @@ axiosClient.interceptors.request.use(async (config) => {
      // Sử dụng hàm getToken để lấy token từ sessionStorage
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
+        config.headers['x-auth-token'] = token; 
     } else {
         // Nếu không tồn tại token, thực hiện xử lý phù hợp, ví dụ: chuyển hướng đến trang đăng nhập
         // window.location.href = '/login';

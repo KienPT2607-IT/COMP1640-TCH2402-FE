@@ -28,11 +28,17 @@ const New = ({ }) => {
     });
   };
   const facultyOptions = [
+    { value: "Graphic and Digital Design", label: "Graphic and Digital Design" },
+    { value: "IT", label: "IT" },
     { value: "Graphic and Digital Design", label: "Graphic and Digital Design" }
   ];
 
   const roleOptions = [
-    { value: "Marketing Coordinator", label: "Marketing Coordinator" }
+    { value: "Marketing Coordinator", label: "Marketing Coordinator" },
+    { value: "Student", label: "Student" },
+    { value: "Marketing Manager", label: "Marketing Manager" },
+    { value: "Admin", label: "Admin" },
+    { value: "Guest", label: "Guest" }
   ];
 
   const genderOptions = [
@@ -109,7 +115,7 @@ const New = ({ }) => {
   }
 
   return (
-    <div className = "new">
+    <div className="new">
       <Toaster />
       <Sidebar />
       <div className="newContainer">
@@ -139,7 +145,7 @@ const New = ({ }) => {
               onChange={(e) => setFile(e.target.files[0])}
               style={{ display: "none" }}
             />
-          </div> 
+          </div>
           <div className="right">
             <form onSubmit={submitForm}>
               <div className="formInput">

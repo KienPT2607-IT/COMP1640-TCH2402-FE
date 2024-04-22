@@ -28,8 +28,8 @@ const ListEvent = () => {
       <div className="feedWrapper">
         <h2>Event</h2>
         {events.map(event => (
-           <div key={event._id} className="post">
-           <CardEvent event={event} key={event._id} />
+           <div className="post" key={event._id}>
+           <CardEvent event={event} />
          </div>
         ))}
       </div>

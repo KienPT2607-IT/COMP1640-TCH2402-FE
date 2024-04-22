@@ -50,6 +50,13 @@ function App() {
             <Route path="profile">
             <Route index element={<Single />} />
             </Route> 
+            
+            <Route path="campaigns">
+              <Route index element={<ListCampaign />} />
+              <Route path="edit/:id" element={<EditCampaign />} />
+              <Route path="view/:campaignId" element={<ViewDetailCampaign />} />
+  
+            </Route>
 
             <Route path="contribution">
               <Route index element={<ListCampaign />} />

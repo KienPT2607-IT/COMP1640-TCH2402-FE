@@ -10,7 +10,7 @@ const ForgotPassword = () => {
                 <div className="input-box">
                     <input type="text" placeholder="Email" required />
                 </div>
-                <button type="submit">Send OTP code</button>
+                <button type="submit">Send new password</button>
             </form>
         </div>
     )

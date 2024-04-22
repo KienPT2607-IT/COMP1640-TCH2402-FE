@@ -30,6 +30,7 @@ export default function CardEvent({ event }) {
             to={{
               pathname: "/contribution"
             }}
+            state = {{eventId: event._id}}
             className="editButton"
           >
             Detail
