@@ -39,72 +39,90 @@ function Datatable() {
   //   }
   // }, []);
 
-  const handleDelete = async (id) => {
-    const isConfirmed = window.confirm('Are you sure you want to delete this user?');
-  
-    if (isConfirmed) {
-      try {
-        await userApi.delete(id);
-        
-        // If delete is successful, update the state to remove the deleted user
-        setUsers(users.filter(user => user._id !== id));
-        console.log(`Successfully deleted user with id: ${id}`);
-      } catch (error) {
-        console.log('Failed to delete user:', error);
-      }
+  const handleStatusChange = async (id, newStatus) => {
+    console.log(`Changing status for user with id ${id} to ${newStatus}`);
+    try {
+      await userApi.updateStatus(id, { account_status: newStatus });
+      setUsers(users.map(user => user._id === id ? { ...user, account_status: newStatus } : user));
+      console.log(`Successfully updated status for user with id: ${id}`);
+    } catch (error) {
+      console.log('Failed to update status:', error);
     }
   };
-
-
-  return (
-    <div className="datatable-container">
-      <h1>User Data</h1>
-      <table className="datatable">
-        <thead>
-          <tr>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>Date of Birth</th>
-            <th>Phone Number</th>
-            <th>Gender</th>
-            <th>Profile Picture</th>
-            <th>Registration Date</th>
-            <th>Account Status</th>
-            <th>Faculty</th>
-            <th>Role</th>
-            <th>Action</th> {/* New Action header */}
-
-          </tr>
-        </thead>
-        <tbody>
-          {users.map(user => (
-            <tr key={user._id}>
-              <td>{user.full_name}</td>
-              <td>{user.email}</td>
-              <td>{user.dob}</td>
-              <td>{user.phone_number}</td>
-              <td>{user.gender ? 'Male' : 'Female'}</td>
-              <td>{user.profile_picture}</td>
-              <td>{user.registration_date}</td>
-              <td>{user.account_status ? 'Active' : 'Inactive'}</td>
-              <td>{user.faculty}</td>
-              <td>{user.role}</td>
-              <td>
-                {/* Edit button */}
-                <button className="edit-button" onClick={() => handleEdit(user._id)}>
-                  Edit
-                </button>
-                {/* Delete button */}
-                <button className="delete-button" onClick={() => handleDelete(user._id)}>
-                  Delete
-                </button>
-              </td>
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    return formattedDate;
+  };
+    return (
+      <div className="datatable-container">
+        <div className="datatableTitle">
+          User
+          <Link to="/users/new" className="link">
+            Add New
+          </Link>
+        </div>
+        <table className="datatable">
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Date of Birth</th>
+              <th>Phone Number</th>
+              <th>Gender</th>
+              <th>Profile Picture</th>
+              <th>Registration Date</th>
+              <th>Account Status</th>
+              <th>Faculty</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Action</th> 
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
+          </thead>
+          <tbody>
+            {users.map(user => (
+              <tr key={user._id}>
+                <td>{user.full_name}</td>
+                <td>{user.email}</td>
+                <td>{formatDate(user.dob)}</td>
+                <td>{user.phone_number}</td>
+                <td>{user.gender ? 'Male' : 'Female'}</td>
+                <td>
+                  <img 
+                    src={user.profile_picture} 
+                    alt={user.full_name} 
+                    className="profile-picture" 
+                  />
+                </td>                
+                <td>{formatDate(user.registration_date)}</td>
+                <td>{user.account_status ? 'Active' : 'Inactive'}</td>
+                <td>{user.faculty}</td>
+                <td>{user.role}</td>
+                <td>
+                <select 
+                    value={user.account_status ? 'Active' : 'Inactive'} 
+                    onChange={(e) => {
+                      console.log('Selected value:', e.target.value);
+                      handleStatusChange(user._id, e.target.value === 'Active');
+                    }}
+                    style={{ color: user.account_status ? 'green' : 'red' }}
+                  >
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                  </select>
+                </td>
+                <td>
+                  <button className="edit-button" onClick={() => handleEdit(user._id)}>
+                    Edit
+                  </button>
+          
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
 
-export default Datatable;
+  export default Datatable;

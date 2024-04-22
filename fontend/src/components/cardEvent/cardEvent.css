@@ -1,72 +1,77 @@
-.postt {
-    width: 100%;
-    border-radius: 10px;
-    -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
-    box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
-    margin: 30px 0;
-  }
-  
-  .posttWrapper {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .posttTop {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .posttTopLeft {
-    display: flex;
-    flex-direction: column; /* Display the content vertically */
-  }
-  
-  .posttProfileImg {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .posttUsername {
-    font-size: 20px;
-    font-weight: bold;
-    font-style: italic;
-    margin: 0 10px;
-  }
-  
-  .posttDate{
-      font-size: 20px;
-      
-  }
-  
-  .posttCenter {
-    margin-top: 10px; /* Adjust margin as needed */
-  }
-  
-  
-  .posttBottom{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-  }
-  
-  .posttBottomLeft{
-      display: flex;
-      align-items: center;   
-  }
-  .posttTopRight {
-    margin-left: auto;
-  }
-  .btnPostt {
-    background-color: brown; /* Set button background color */
-    color: white; /* Set button text color */
-    border: none; /* Remove button border */
-    padding: 10px 20px; /* Add padding to the button */
-    border-radius: 5px; /* Add border-radius for rounded corners */
-    width: 100%; /* Make the button full-width */
-    margin-top: 10px; /* Add margin to the top */
-  }
-  
-  
+.post {
+  width: 100%;
+  margin-bottom: 30px;
+  border-radius: 20px;
+  background-color: #ffffff;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.post:hover {
+  transform: translateY(-5px);
+}
+
+.postWrapper {
+  padding: 25px;
+}
+
+.postTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.postTopLeft {
+  display: flex;
+  align-items: center;
+}
+
+.postUsername {
+  font-weight: bold;
+  margin-right: 20px;
+  font-size: 22px;
+  color: #333333;
+}
+
+.postTopRight {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.postTopRight:hover {
+  transform: rotate(90deg) scale(1.1);
+}
+
+.postDate {
+  font-size: 16px;
+  color: #777777;
+  margin-right: 20px;
+}
+
+.postCenter {
+  margin-bottom: 25px;
+}
+
+.postText {
+  font-size: 18px;
+  color: #555555;
+  line-height: 1.6;
+}
+
+.btnPost {
+  padding: 14px 24px;
+  background-color: #7abafd;
+  color: #ffffff;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+.btnPost:hover {
+  background-color: #007afc;
+}

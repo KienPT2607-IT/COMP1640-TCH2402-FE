@@ -6,7 +6,6 @@ import RegisterAccount from "./pages/RegisterAccount/RegisterAccount";
 import OtpForm from "./pages/OtpForm/OtpForm";
 import List from "./pages/list/List";
 import ListCampaign from "./pages/listCampaign/ListCampaign";
-import ListDepartment from "./pages/listDepartment/ListDepartment";
 import Campaign from "./pages/campaign/Campaign";
 import Single from "./pages/single/Single";
 import Edit from "./pages/edit/Edit";
@@ -19,9 +18,6 @@ import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import "./style/dark.css";
 import EditCampaign from "./pages/editCampaign/EditCampaign";
-import EditDepartment from "./pages/editDepartment/EditDepartment";
-import NewDepartment from "./pages/newDepartment/NewDepartment";
-import ViewDetailDepartment from "./pages/viewDetailDepartment/ViewDetailDepartment";
 import ViewDetailCampaign from "./pages/viewDetailCampaign/ViewDetailCampaign";
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -39,7 +35,6 @@ function App() {
             <Route path="changepassword" element={<ChangePassWord />} />
             <Route path="campaign">
               <Route index element={<Campaign />} />
-              
             </Route>
             <Route path="event">
               <Route index element={<Event />} />
@@ -59,22 +54,12 @@ function App() {
             <Route path="profile">
             <Route index element={<Single />} />
               </Route> 
-
             <Route path="campaigns">
               <Route index element={<ListCampaign />} />
               <Route path="edit/:id" element={<EditCampaign />} />
               <Route path="view/:campaignId" element={<ViewDetailCampaign />} />
-  
-            </Route>
-            <Route path="departments">
-              <Route index element={<ListDepartment />} />
-              <Route path="view/:departmentId" element={<ViewDetailDepartment />} />
-              <Route path="edit/:id" element={<EditDepartment />} />
-              <Route
-                path="new"
-                element={<NewDepartment />}
-              />
-            </Route>
+              </Route>
+
           </Route>
         </Routes>
       </BrowserRouter>

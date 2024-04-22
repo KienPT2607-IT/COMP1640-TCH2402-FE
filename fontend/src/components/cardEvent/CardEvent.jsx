@@ -2,7 +2,12 @@ import "./cardEvent.css";
 import { MoreVert } from "@material-ui/icons";
 
 export default function CardEvent({ event }) {
-
+  const formatDateTime = (dateTimeString) => {
+    const dateTime = new Date(dateTimeString);
+    const formattedDate = `${dateTime.getDate()}/${dateTime.getMonth() + 1}/${dateTime.getFullYear()}`;
+    const formattedTime = `${dateTime.getHours()}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}`;
+    return `${formattedDate} ${formattedTime}`;
+  };
   return (
     <div className="post">
       <div className="postWrapper">
@@ -13,8 +18,8 @@ export default function CardEvent({ event }) {
             </span>
           </div>
           <div>
-              <span className="postDate">Start Date: {event.create_date}</span>
-              <span className="postDate">Final Date: {event.due_date}</span>
+              <span className="postDate">Start Date: {formatDateTime(event.last_update)}</span>
+              <span className="postDate">Final Date: {formatDateTime(event.last_update)}</span>
             </div>
           <div className="postTopRight">
             <MoreVert />

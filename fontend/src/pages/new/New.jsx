@@ -118,29 +118,6 @@ const New = ({ }) => {
           <h1>Add User</h1>
         </div>
         <div className="bottom">
-          <div className="left">
-            <div className="imageContainer">
-              <img
-                className="userImage"
-                src={
-                  file
-                    ? URL.createObjectURL(file)
-                    : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-                }
-                alt=""
-              />
-            </div>
-            <label htmlFor="file">
-              Image: <DriveFolderUploadOutlinedIcon className="icon" />
-            </label>
-            <input
-              type="file"
-              id="file"
-              onChange={(e) => setFile(e.target.files[0])}
-              style={{ display: "none" }}
-            />
-          </div>
-          <div className="right">
             <form onSubmit={submitForm}>
               <div className="formInput">
                 <label htmlFor="role">Role:</label>
@@ -202,14 +179,13 @@ const New = ({ }) => {
                   selected={dob}
                   onChange={(value) => setDob(value)}
                   dateFormat="dd/MM/yyyy"
-                // You can customize the date format according to your needs
                 />
               </div>
-              <input type="submit" value="Submit" />
+              <button  className="button_submit" type="submit" value="Submit"> submit</button>
             </form>
           </div>
         </div>
-      </div>
+      
     </div>
   );
 };
