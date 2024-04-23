@@ -20,27 +20,6 @@ function Datatable() {
     fetchUsers();
   }, []);
 
-  // useEffect(() => {
-  //   const token = sessionStorage.getItem('x-auth-token');
-  //   console.log("Token:", token);
-  //   if (token) {
-  //     const config = {
-  //       headers: {
-  //         'x-auth-token': token
-  //       }
-  //     };
-  //     console.log("Config:", config);
-  //     axios.get('https://comp1640-tch2402-be.onrender.com/users', config) // Sửa URL endpoint để phù hợp với endpoint của bạn
-  //       .then(response => {
-  //         console.log("Response:", response.data.data); // Dữ liệu trả về từ server được lưu trong response.data.data
-  //         setUsers(response.data.data); // Lưu dữ liệu người dùng vào state
-  //       })
-  //       .catch(error => console.error("Error:", error));
-  //   }
-  // }, []);
-
-
-
   return (
     <div className="datatable-container">
       <h1>User Data</h1>

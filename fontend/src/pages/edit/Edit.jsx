@@ -2,51 +2,91 @@ import React, { useState, useEffect } from "react";
 import "./edit.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { useParams } from "react-router-dom";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
-import userApi from "../../api/userApi";
+import axios from 'axios';
+import { Link } from "react-router-dom";
 
 const Edit = () => {
   const [userProfile, setUserProfile] = useState({});
-  const [file, setFile] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const [file, setFile] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
+
+  const { id } = useParams();
 
   useEffect(() => {
-    const storedUserProfile = JSON.parse(sessionStorage.getItem("user"));
-    setUserProfile(storedUserProfile);
+    const token = sessionStorage.getItem('x-auth-token');
+    if (token) {
+      axios.get('https://comp1640-tch2402-be.onrender.com/users/update', {
+        headers: {
+          'x-auth-token': token
+        }
+      })
+      .then(response => {
+        setUserProfile(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+      });
+    } else {
+      console.error('Token not found');
+    }
   }, []);
 
   const handleChange = (e) => {
-    setUserProfile({
-      ...userProfile,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    if (name === "phoneNumber") {
+      setPhoneNumber(value);
+    } else if (name === "password") {
+      setPassword(value);
+    }
   };
 
-  const handleFacultyChange = (e) => {
-    setUserProfile({
-      ...userProfile,
-      faculty: e.target.value,
-    });
-  };
-
-  const handleDateChange = (value) => {
-    setUserProfile({
-      ...userProfile,
-      dob: value,
-    });
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    setPreviewImage(URL.createObjectURL(selectedFile)); // Hiển thị hình ảnh đã chọn
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
     try {
-      // Call API to update user profile
-      await userApi.putUserUpdate(userProfile);
-      console.log("User profile updated successfully");
+      const formData = new FormData();
+      formData.append("phone_number", phoneNumber);
+      formData.append("password", password);
+      if (file) {
+        formData.append("profile_picture", file);
+      }
+  
+      const token = sessionStorage.getItem('x-auth-token');
+      if (!token) {
+        console.error('Token not found');
+        return; // Exit early if token is not found
+      }
+  
+      const response = await axios.put(`https://comp1640-tch2402-be.onrender.com/users/update`, formData, {
+        headers: {
+          'x-auth-token': token,
+          'Content-Type': 'multipart/form-data' // Set content type for FormData
+        }
+      });
+      console.log("Update response:", response);
+  
+      // Update userProfile with new profile picture URL
+      setUserProfile(prevState => ({
+        ...prevState,
+        profile_picture: response.data.data.profile_picture // Assuming the response contains new profile picture URL
+      }));
     } catch (error) {
-      console.error("Failed to update user profile:", error);
+      console.error("Error updating user:", error);
+      // Xử lý lỗi nếu cần
     }
   };
+  
+  
 
   return (
     <div className="new">
@@ -61,11 +101,7 @@ const Edit = () => {
             <div className="imageContainer">
               <img
                 className="userImage"
-                src={
-                  file
-                    ? URL.createObjectURL(file)
-                    : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-                }
+                src={previewImage || (userProfile.profile_picture ? userProfile.profile_picture : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg")}
                 alt=""
               />
             </div>
@@ -75,76 +111,33 @@ const Edit = () => {
             <input
               type="file"
               id="file"
-              onChange={(e) => setFile(e.target.files[0])}
+              onChange={handleFileChange}
               style={{ display: "none" }}
             />
           </div>
           <div className="right">
             <form onSubmit={handleSubmit}>
               <div className="formInput">
-                <label htmlFor="role">Role:</label>
-                <input
-                  type="text"
-                  id="role"
-                  name="role"
-                  disabled
-                  value={userProfile.role || ""}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="formInput">
-                <label htmlFor="faculty">Faculty:</label>
-                <input
-                  type="text"
-                  id="faculty"
-                  name="faculty"
-                  disabled
-                  value={userProfile.faculty }
-                  onChange={handleFacultyChange}
-                />
-              </div>
-              <div className="formInput">
-                <label htmlFor="full_name">Full Name:</label>
-                <input
-                  type="text"
-                  id="full_name"
-                  name="full_name"
-                  value={userProfile.full_name || ""}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="formInput">
-                <label htmlFor="email">Email:</label>
-                <input
-                  type="text"
-                  id="email"
-                  name="email"
-                  disabled
-                  value={userProfile.email || ""}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="formInput">
                 <label htmlFor="phoneNumber">Phone number:</label>
                 <input
-                  type="string"
+                  type="text"
                   id="phoneNumber"
-                  name="phone_number"
-                  value={userProfile.phone_number || ""}
+                  name="phoneNumber"
+                  value={phoneNumber}
                   onChange={handleChange}
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="dob">DOB:</label>
-                <DatePicker
-                  id="dob"
-                  name="dob"
-                  selected={userProfile.dob}
-                  onChange={handleDateChange}
-                  dateFormat="dd/MM/yyyy"
+                <label htmlFor="password">Password:</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={password}
+                  onChange={handleChange}
                 />
               </div>
-              <button type="submit">Save</button>
+             <button type="submit">Save</button>
             </form>
           </div>
         </div>

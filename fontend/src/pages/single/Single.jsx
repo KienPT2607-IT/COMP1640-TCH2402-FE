@@ -24,23 +24,16 @@ const Single = () => {
       .catch(error => {
         console.error('Error fetching user data:', error);
         setLoading(false);
-        if (error.response && error.response.status === 500) {
-          // Handle 500 Internal Server Error
-          alert('There was an error fetching the user data. Please try again later.');
-        } else if (error.response && error.response.status === 401) {
-          // Handle 401 Unauthorized
-          alert('Unauthorized access. Please login again.');
-        } else {
-          // Handle other errors
-          alert('An error occurred while fetching the user data.');
-        }
       });
     } else {
       console.error('Token not found');
       setLoading(false);
-      alert('Token not found. Please login again.');
     }
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="single">

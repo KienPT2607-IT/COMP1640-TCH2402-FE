@@ -6,12 +6,18 @@ import { Posts } from "../../dummyData";
 import { useEffect, useState } from "react";
 import contributionApi from "../../api/contributionApi";
 
-const Feed = ({eventId}) => {
-  const [contribution, setContribution]  = useState([]);
+const Feed = ({ eventId }) => {
+  const [contribution, setContribution] = useState([]);
+  const [toggleReloadContribution, setToggleReloadContribution] = useState(false)
+
+  const handleToggleReloadContribution = () => {
+    setToggleReloadContribution(!toggleReloadContribution)
+  }
 
   useEffect(() => {
     const fetchContributions = async () => {
-      try{
+      console.log('call api')
+      try {
         const response = await contributionApi.getAll(eventId);
 
         const mockdata = response.data.map(item => {
@@ -32,19 +38,20 @@ const Feed = ({eventId}) => {
 
         setContribution(mockdata)
 
-      }catch (error) {
+      } catch (error) {
         console.log('Fail to fetch', error)
       }
     }
+
     fetchContributions();
-  }, [eventId]);
+  }, [eventId, toggleReloadContribution]);
 
   return (
     <div className="feed">
       <div className="feedWrapper">
-      <Share />
+        <Share eventId={eventId} handleToggleReloadContribution={handleToggleReloadContribution} />
         {contribution.length > 0 && contribution.map((p) => (
-          <Post key={p.id} post={p} eventId={eventId}/>
+          <Post handleToggleReloadContribution={handleToggleReloadContribution} key={p.id} post={p} eventId={eventId} />
         ))}
       </div>
     </div>

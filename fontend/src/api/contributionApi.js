@@ -6,26 +6,37 @@ const contributionApi = {
         const url = `contributions/event/${eventId}`;
         return apiClient.get(url);
     },
-    // create: (data) => {
-    //     const url = '/users/create-user';
-    //     return apiClient.post(url, data);
-    // },
-    // update: (data) => {
-    //     const url = `/users/update/${data.userId}`;
-    //     return apiClient.put(url, data);
-    // },
-    // delete: (userId) => {
-    //     const url = `/users/delete/${userId}`;
-    //     return apiClient.delete(url);
-    // },
-    // getDetail: (userId) => {
-    //     const url = `/users/${userId}`;
-    //     return axiosClient.get(url);
-    // },
-    // getUserUpdate: () => {
-    //     const url = 'users/update';
-    //     return axiosClient.get(url);
-    // }
+    
+    create: (formData) => {
+        console.log(formData)
+        const url = '/contributions/create';
+        const response = apiClient({
+            url,
+            method: "POST",
+            data: formData,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        return response
+    }, 
+
+    like: (id) => {
+        const url = `contributions/like/${id}`
+        const response = apiClient({
+            url,
+            method: "PUT"
+        })
+        return response
+    },
+    dislike: (id) => {
+        const url = `contributions/dislike/${id}`
+        const response = apiClient({
+            url,
+            method: "PUT"
+        })
+        return response
+    }
 }
 
 export default contributionApi;

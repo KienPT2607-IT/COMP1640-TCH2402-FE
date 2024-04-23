@@ -2,19 +2,35 @@ import "./post.css";
 import { MoreVert } from "@material-ui/icons";
 import Comments from "../comments/Comments";
 import { useState, useEffect } from "react";
-import commentApi from "../../api/commentApi";
+import contributionApi from "../../api/contributionApi";
 
-export default function Post({ post, eventId }) {
+export default function Post({ post, eventId, handleToggleReloadContribution }) {
   const [commentOpen, setCommentOpen] = useState(false);
   const [like, setLike] = useState(post.like);
 
 
   const likeHandler = () => {
-    setLike(like + 1);
+    const handler = async () => {
+      const response = await contributionApi.like(post.id)
+
+      if (response) {
+        handleToggleReloadContribution()
+      }
+    }
+
+    handler()
   };
 
   const dislikeHandler = () => {
-    setLike(like - 1);
+    const handler = async () => {
+      const response = await contributionApi.dislike(post.id)
+
+      if (response) {
+        handleToggleReloadContribution()
+      }
+    }
+
+    handler()
   };
 
   return (
