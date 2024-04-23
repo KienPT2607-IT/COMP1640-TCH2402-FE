@@ -16,25 +16,6 @@ const Edit = () => {
 
   const { id } = useParams();
 
-  useEffect(() => {
-    const token = sessionStorage.getItem('x-auth-token');
-    if (token) {
-      axios.get('https://comp1640-tch2402-be.onrender.com/users/update', {
-        headers: {
-          'x-auth-token': token
-        }
-      })
-      .then(response => {
-        setUserProfile(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching user data:', error);
-      });
-    } else {
-      console.error('Token not found');
-    }
-  }, []);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "phoneNumber") {

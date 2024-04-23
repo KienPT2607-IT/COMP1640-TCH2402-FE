@@ -12,10 +12,10 @@ const eventApi = {
         const url = '/events/createEvent';
         return apiClient.post(url, data);
     },
-    // update: (data) => {
-    //     const url = `/users/update/${data.userId}`;
-    //     return axiosClient.put(url, data)
-    // },
+    update: (id, data) => {
+        const url = `events/updateEvent/${id}`;
+        return axiosClient.put(url, data)
+    },
     // delete(userId) {
 
     // },

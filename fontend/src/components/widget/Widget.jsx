@@ -5,18 +5,16 @@ import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalance
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 
-const Widget = ({ type }) => {
+const Widget = ({ type, amount }) => {
   let data;
 
   //temporary
-  const amount = 100;
   const diff = 20;
 
   switch (type) {
     case "user":
       data = {
         title: "USERS",
-        link: "See all users",
         icon: (
           <PersonOutlinedIcon
             className="icon"
@@ -39,13 +37,13 @@ const Widget = ({ type }) => {
         </span>
         <span className="link">{data.link}</span>
       </div>
-      <div className="right">
+      {/* <div className="right">
         <div className="percentage positive">
           <KeyboardArrowUpIcon />
           {diff} %
         </div>
         {data.icon}
-      </div>
+      </div> */}
     </div>
   );
 };

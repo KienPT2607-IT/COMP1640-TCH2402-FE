@@ -1,6 +1,6 @@
 import axiosClient from "./apiClient";
 import apiClient from "./apiClient";
-
+import axios from 'axios';
 const userApi = {
     getAll: () => {
         const url = '/users';
@@ -25,6 +25,15 @@ const userApi = {
     putUserUpdate: () => {
         const url = 'users/update';
         return axiosClient.put();
+    },
+    forgotPassword: (email) => {
+        return axios({
+            method: 'post',
+            url: 'https://comp1640-tch2402-be.onrender.com/users/forgot-password',
+            data: {
+              email
+            }
+          });
     }
 }
 

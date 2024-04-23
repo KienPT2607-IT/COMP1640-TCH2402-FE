@@ -5,7 +5,7 @@ import commentApi from "../../api/commentApi";
 const Comments = ({ contributionId, eventId }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState([]);
-
+  const [toggleReload, setToggleReload] = useState(false)
   useEffect(() => {
     const fetchComments = async () => {
       try {
@@ -33,29 +33,34 @@ const Comments = ({ contributionId, eventId }) => {
     };
 
     console.log("contributionID", contributionId);
-    console.log("eventId", eventId);
     
     fetchComments();
-  }, [contributionId, eventId]);
+  }, [contributionId, eventId, toggleReload]);
 
   const handleInputChange = (e) => {
     setNewComment(e.target.value);
   };
 
   const handleSubmitComment = () => {
-    // const newCommentList = [
-    //   ...Commentss,
-    //   {
-    //     id: Commentss.length + 1,
-    //     desc: newComment,
-    //     userId: 1,
-    //     postId: 1, 
-    //   }
-    // ];
+    const handler = async () => {
+      const data = {
+        contribution: contributionId,
+        content: newComment
+      }
+  
+      const response =  await commentApi.create(data)   
+      if(response && response._id){
 
-    // setNewComment(newCommentList);
+      } 
+      else {
+        console.log('response', response)
 
-    setNewComment("");
+      }
+      setNewComment("");
+      setToggleReload(!toggleReload)
+    }
+
+    handler()
   };
 
   return (

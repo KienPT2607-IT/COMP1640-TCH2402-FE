@@ -1,72 +1,96 @@
 .postt {
-    width: 100%;
-    border-radius: 10px;
-    -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
-    box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
-    margin: 30px 0;
-  }
-  
-  .posttWrapper {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .posttTop {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .posttTopLeft {
-    display: flex;
-    flex-direction: column; /* Display the content vertically */
-  }
-  
-  .posttProfileImg {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .posttUsername {
-    font-size: 20px;
-    font-weight: bold;
-    font-style: italic;
-    margin: 0 10px;
-  }
-  
-  .posttDate{
-      font-size: 20px;
-      
-  }
-  
-  .posttCenter {
-    margin-top: 10px; /* Adjust margin as needed */
-  }
-  
-  
-  .posttBottom{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-  }
-  
-  .posttBottomLeft{
-      display: flex;
-      align-items: center;   
-  }
-  .posttTopRight {
-    margin-left: auto;
-  }
-  .btnPostt {
-    background-color: brown; /* Set button background color */
-    color: white; /* Set button text color */
-    border: none; /* Remove button border */
-    padding: 10px 20px; /* Add padding to the button */
-    border-radius: 5px; /* Add border-radius for rounded corners */
-    width: 100%; /* Make the button full-width */
-    margin-top: 10px; /* Add margin to the top */
-  }
-  
-  
+  width: 100%;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+  box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+  margin: 30px 0;
+}
+
+.posttWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.posttTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.posttTopLeft {
+  display: flex;
+  flex-direction: column;
+  /* Display the content vertically */
+}
+
+.posttProfileImg {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.posttUsername {
+  font-size: 20px;
+  font-weight: bold;
+  font-style: italic;
+  margin: 0 10px;
+}
+
+.posttDate {
+  font-size: 20px;
+
+}
+
+.posttCenter {
+  margin-top: 10px;
+  /* Adjust margin as needed */
+}
+
+
+.posttBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.posttBottomLeft {
+  display: flex;
+  align-items: center;
+}
+
+.postTopRight {
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.btnPostt {
+  background-color: brown;
+  /* Set button background color */
+  color: white;
+  /* Set button text color */
+  border: none;
+  /* Remove button border */
+  padding: 10px 20px;
+  /* Add padding to the button */
+  border-radius: 5px;
+  /* Add border-radius for rounded corners */
+  width: 100%;
+  /* Make the button full-width */
+  margin-top: 10px;
+  /* Add margin to the top */
+}
+
+
+.margin-right-s {
+  margin-right: 3px;
+}
+
+.padding-s {
+  padding: 3px;
+}
+
+.input-description {
+  width: 90%;
+  padding: 10px;
+}

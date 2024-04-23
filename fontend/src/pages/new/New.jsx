@@ -125,26 +125,6 @@ const New = ({ }) => {
         </div>
         <div className="bottom">
           <div className="left">
-            <div className="imageContainer">
-              <img
-                className="userImage"
-                src={
-                  picture_profile
-                    ? URL.createObjectURL(picture_profile)
-                    : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-                }
-                alt=""
-              />
-            </div>
-            <label htmlFor="file">
-              Image: <DriveFolderUploadOutlinedIcon className="icon" />
-            </label>
-            <input
-              type="file"
-              id="file"
-              onChange={(e) => setFile(e.target.files[0])}
-              style={{ display: "none" }}
-            />
           </div>
           <div className="right">
             <form onSubmit={submitForm}>

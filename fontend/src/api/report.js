@@ -1,15 +1,14 @@
-import axiosClient from "./apiClient";
 import apiClient from "./apiClient";
 
-const commentApi = {
-    getAll: (contributionId) => {
-        const url = `comments/${contributionId}`;
+const reportApi = {
+    get: () => {
+        const url = 'reports';
         return apiClient.get(url);
     },
-    create: (data) => {
-        const url = '/comments/create';
-        return apiClient.post(url, data);
-    },
+    // create: (data) => {
+    //     const url = '/users/create-user';
+    //     return apiClient.post(url, data);
+    // },
     // update: (data) => {
     //     const url = `/users/update/${data.userId}`;
     //     return apiClient.put(url, data);
@@ -22,12 +21,12 @@ const commentApi = {
     //     const url = `/users/${userId}`;
     //     return axiosClient.get(url);
     // },
-    // getUserUpdate: () => {
+    // putUserUpdate: () => {
     //     const url = 'users/update';
-    //     return axiosClient.get(url);
+    //     return axiosClient.put();
     // }
 }
 
-export default commentApi;
+export default reportApi;
 
 

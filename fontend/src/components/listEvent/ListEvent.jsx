@@ -4,12 +4,11 @@ import Share from "../share/Share";
 import { campaignRows } from "../../dataCampaign";
 import CardEvent from "../cardEvent/CardEvent";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import eventApi from '../../api/eventApi';
 
 const ListEvent = () => {
   const [events, setEvents] = useState([]);
-
+  const [toggle, setToggle] = useState(false)
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -21,16 +20,16 @@ const ListEvent = () => {
       }
     }
     fetchUsers();
-  }, []);
+  }, [toggle]);
 
   return (
     <div className="feed">
       <div className="feedWrapper">
         <h2>Event</h2>
         {events.map(event => (
-           <div className="post" key={event._id}>
-           <CardEvent event={event} />
-         </div>
+          <div className="post" key={event._id}>
+            <CardEvent handleReload={() => setToggle(!toggle)} event={event} />
+          </div>
         ))}
       </div>
     </div>

@@ -1,9 +1,8 @@
 .home {
   display: flex;
-
   .homeContainer {
     flex: 6;
-
+    padding: 10px;
     .widgets,
     .charts {
       display: flex;
@@ -28,4 +27,31 @@
       }
     }
   }
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.margin-bottom-m {
+  margin-bottom: 20px;
+}
+
+.card {
+  padding: 10px;
+  border: 1px solid #e7e7e7;
+  border-radius: 4px;
 }
