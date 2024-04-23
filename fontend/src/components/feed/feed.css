@@ -1,7 +1,16 @@
-.feed{
-    flex:5.5
-}
-
-.feedWrapper{
+.feed {
+    flex: 3; /* Adjust this value based on your layout */
     padding: 20px;
-}
+  }
+  
+  .feedWrapper {
+    display: flex;
+    flex-direction: column; /* Stack child elements vertically */
+    align-items: center;
+  }
+  
+  /* Optional styles for better layout separation */
+  .feedWrapper > * {
+    margin-bottom: 20px; /* Add some space between child elements */
+  }
+  

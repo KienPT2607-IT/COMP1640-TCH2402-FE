@@ -58,8 +58,8 @@ const LoginForm = () => {
     }
 
     return (
-        <div className="wrapper">
-            <form>
+        <div className="wrapper_login">
+            <form className="form_login">
                 <h1>COMP1640</h1>
                 <h6>Welcome Back, Please login to your account</h6>
                 <div className="input-box">
@@ -77,7 +77,7 @@ const LoginForm = () => {
                     <label><input type="checkbox" />Remember me</label>
                     <a href="/forgotPassword">Forgot password?</a>
                 </div>
-                <button type="submit" onClick={handleApi}>Login</button>
+                <button className="buttonlogin" type="submit" onClick={handleApi}>Login</button>
 
                 <div className="register-link">
                     <p>Don't have account? <a href="/Register ">Register</a> </p>

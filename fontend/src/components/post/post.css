@@ -1,19 +1,41 @@
 .post {
   width: 100%;
+  margin-bottom: 20px;
   border-radius: 10px;
-  -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
-  box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
-  margin: 30px 0;
+  background-color: #ffffff;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.postTopRight {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Adds space between the date and MoreVert icon */
+}
+
+.postDate {
+  font-size: 12px; /* Adjust the font size as per your preference */
+  color: #aaa; /* Light gray color */
+  margin-right: 10px; /* Adds space to the right of the date */
+}
+
+.postTopRight > svg {
+  color: #aaa; /* Light gray color for the MoreVert icon */
+  cursor: pointer; /* Change cursor to pointer when hovering over the icon */
+}
+.post:hover {
+  transform: translateY(-5px);
 }
 
 .postWrapper {
-  padding: 10px;
+  padding: 15px;
 }
 
 .postTop {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
 .postTopLeft {
@@ -22,57 +44,74 @@
 }
 
 .postProfileImg {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  object-fit: cover;
+  margin-right: 10px;
 }
 
 .postUsername {
-  font-size: 15px;
   font-weight: 500;
-  margin: 0 10px;
+  margin-right: 10px;
 }
 
-.postDate{
-    font-size: 12px;
+.postCenter {
+  margin-bottom: 15px;
 }
 
-.postCenter{
-    margin: 20px 0;
+.postText {
+  font-size: 20px; /* Increase the font size to make it bigger */
+  line-height: 1.5; /* Adjust line height for better readability */
+  margin-top: 15px; /* Add some margin at the top for spacing */
+  margin-bottom: 15px; /* Add some margin at the bottom for spacing */
 }
 
-.postImg{
-    margin-top: 20px;
-    width: 100%;
-    max-height: 500px;
-    object-fit: contain;
+.postCenter h4 {
+  margin-bottom: 10px;
 }
 
-.postBottom{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.postCenter ul {
+  list-style-type: none;
+  padding-left: 0;
 }
 
-.postBottomLeft{
-    display: flex;
-    align-items: center;   
+.postCenter ul li {
+  margin-bottom: 5px;
 }
 
-.likeIcon{
-    width: 24px;
-    height: 24px;
-    margin-right: 5px;
-    cursor: pointer;
+.likeIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+  cursor: pointer;
 }
 
-.postLikeCounter{
-    font-size: 15px;
+.postBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.postCommentText{
-    cursor: pointer;
-    border-bottom: 1px dashed gray;
-    font-size: 15px;
+.postBottomLeft {
+  display: flex;
+  align-items: center;
+}
+
+.postLikeCounter {
+  margin-right: 15px;
+}
+
+.postCommentText {
+  cursor: pointer;
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+.postCommentText:hover {
+  color: #0056b3;
+}
+
+.postBottomRight {
+  display: flex;
+  align-items: center;
 }

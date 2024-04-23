@@ -11,15 +11,33 @@ import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 
+// const checkRole = (role) => {
+//   switch (role) {
+//       case 'Admin':
+//           return ['Users', 'EventAdmin'];
+//       case 'Student':
+//           return ['Event'];
+//       case 'Guest':
+//           return ['Event'];
+//       case 'Marketing Coordinator':
+//           return ['Event'];
+//       case 'Marketing Manager':
+//           return ['Event'];
+//       default:
+//           return [];
+//   }
+// }
+
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
+  // const userData = JSON.parse(sessionStorage.getItem('user'));
+  // const userRole = userData ? userData.role : '';
 
+  // const allowedRoutes = checkRole(userRole);
   const handleLogout = () => {
     // Remove token from local storage
     sessionStorage.removeItem("x-auth-token");
-    sessionStorage.removeItem("user");
   };
-
   return (
     <div className="sidebar">
       <div className="top">
@@ -31,57 +49,53 @@ const Sidebar = () => {
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <li>
-              <DashboardIcon className="icon" />
-              <span>Dashboard</span>
-            </li>
-          </Link>
-          <Link to="/campaign" style={{ textDecoration: "none" }}>
-            <li>
-              <CampaignIcon className="icon" />
-              <span>Faculty</span>
-            </li>
-          </Link>
-          <Link to="/event" style={{ textDecoration: "none" }}>
-            <li>
-              <EventIcon className="icon" />
-              <span>Event</span>
-            </li>
-          </Link>
+          {/* {allowedRoutes.includes('Dashboard') && ( */}
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <li>
+                <DashboardIcon className="icon" />
+                <span>Dashboard</span>
+              </li>
+            </Link>
+          {/* )} */}
+          {/* {allowedRoutes.includes('Event') && ( */}
+            <Link to="/event" style={{ textDecoration: "none" }}>
+              <li>
+                <EventIcon className="icon" />
+                <span>Event</span>
+              </li>
+            </Link>
+          {/* )} */}
           <p className="title">Management</p>
-          <Link to="/users" style={{ textDecoration: "none" }}>
-            <li>
-              <PersonOutlineIcon className="icon" />
-              <span >Users</span>
-            </li>
-          </Link>
-          <Link to="/campaigns" style={{ textDecoration: "none" }}>
-            <li>
-              <NewspaperIcon className="icon" />
-              <span>Event Admin</span>
-            </li>
-          </Link>
-          <Link to="/departments" style={{ textDecoration: "none" }}>
-            <li>
-              <NewspaperIcon className="icon" />
-              <span>Department</span>
-            </li>
-          </Link>
+          {/* {allowedRoutes.includes('Users') && ( */}
+            <Link to="/users" style={{ textDecoration: "none" }}>
+              <li>
+                <PersonOutlineIcon className="icon" />
+                <span >Users</span>
+              </li>
+            </Link>
+          {/* )} */}
+          {/* {allowedRoutes.includes('EventAdmin') && ( */}
+            <Link to="/campaigns" style={{ textDecoration: "none" }}>
+              <li>
+                <NewspaperIcon className="icon" />
+                <span>Event Admin</span>
+              </li>
+            </Link>
+          {/* )} */}
           <p className="title">USER</p>
-          <Link to="/profile" style={{ textDecoration: "none" }}>
-            <li>
-              <PersonOutlineIcon className="icon" />
-              <span>Profile</span>
-            </li>
-          </Link>
+            <Link to="/profile" style={{ textDecoration: "none" }}>
+              <li>
+                <PersonOutlineIcon className="icon" />
+                <span>Profile</span>
+              </li>
+            </Link>
+          
           <Link to="/login" style={{ textDecoration: "none" }}>
-            <li onClick={handleLogout} style={{ cursor: "pointer" }}>
-              <ExitToAppIcon className="icon" />
-              <span>Logout</span>
-            </li>
+          <li onClick={handleLogout} style={{cursor: "pointer"}}>
+            <ExitToAppIcon className="icon" />
+            <span>Logout</span>
+          </li>
           </Link>
-
         </ul>
       </div>
       <div className="bottom">

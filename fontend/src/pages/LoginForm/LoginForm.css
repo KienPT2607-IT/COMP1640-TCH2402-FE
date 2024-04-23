@@ -1,27 +1,30 @@
-.wrapper {
-    width: 420px;
-    background: gainsboro;
-    color: black;
-    border-radius: 5px;
-    padding: 30px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.wrapper h1 {
+.wrapper_login {
+    display: flex;
+    justify-content: center; /* Center the form horizontally */
+    align-items: center; /* Center the form vertically */
+    height: 100vh; /* Full viewport height */
+    background-color: #f4f4f4; /* Background color */
+  }
+  
+  .form_login {
+    background-color: #fff; /* Form background color */
+    padding: 40px; /* Padding around form content */
+    border-radius: 8px; /* Rounded corners */
+    width: 300px; /* Form width */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Box shadow */
+  }
+ h1 {
     color: black;
     font-size: 20px;
     text-align: center;
 }
-.wrapper h6 {
+ h6 {
     color: green;
     text-align: center;
     padding-top: 10px;
 }
 
-.wrapper .input-box {
+ .input-box {
     position: relative;
     width: calc(100% - 40px); /* Để trừ đi kích thước của icon */
     height: 50px;
@@ -41,7 +44,7 @@
     border: none ;
     border-radius: 10px;
     font-size: 16px;
-    color: black;
+    color: rgb(0, 0, 0);
     padding: 20px;
 }
 
@@ -54,7 +57,7 @@
     color: #333;
 }
 
-.wrapper .remember-forgot{
+ .remember-forgot{
     display: flex;
     justify-content: space-between;
     font-size: 14.5px;
@@ -79,7 +82,7 @@
     text-decoration: underline;
 }
 
-.wrapper button{
+ .buttonlogin{
     width: 100%;
     height: 45px;
     background: #3cb371;
@@ -93,7 +96,7 @@
     font-weight: 700;
 }
 
-.wrapper .register-link{
+ .register-link{
     font-size: 14.5px;
     text-align: center;
     margin: 20px 0 15px;

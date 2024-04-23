@@ -3,40 +3,45 @@
   width: 100%;
   .singleContainer {
     flex: 6;
-
     .top {
-      padding: 20px;
       display: flex;
-      gap: 20px;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
 
       .left {
         flex: 1;
-        -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
-        box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
-        padding: 20px;
-        position: relative;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 
         .editButton {
-          position: absolute;
-          top: 0;
-          right: 0;
-          padding: 5px;
-          font-size: 12px;
-          color: #7451f8;
-          background-color: #7551f818;
-          cursor: pointer;
-          border-radius: 0px 0px 0px 5px;
+          display: inline-block;
+  padding: 15px 25px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 25px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
         }
 
         .item {
           display: flex;
-          gap: 20px;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
 
           .itemImg {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
+            width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-right: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
           }
 
           .details {
@@ -76,9 +81,9 @@
     }
 
     .title {
-      font-size: 16px;
-      color: lightgray;
-      margin-bottom: 20px;
+      font-size: 32px;
+  margin-bottom: 30px;
+  color: #333;
     }
   }
 }
