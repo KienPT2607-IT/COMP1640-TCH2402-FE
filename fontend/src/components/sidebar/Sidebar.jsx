@@ -4,7 +4,7 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import EventIcon from '@mui/icons-material/Event';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-
+import CampaignIcon from '@mui/icons-material/Campaign';
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
@@ -46,6 +46,7 @@ const Sidebar = () => {
       <hr />
       <div className="center">
         <ul>
+          <p className="title">MAIN</p>
           {allowedRoutes.includes('Dashboard') && (
             <Link to="/" style={{ textDecoration: "none" }}>
               <li>
@@ -62,14 +63,15 @@ const Sidebar = () => {
               </li>
             </Link>
            )} 
-          {allowedRoutes.includes('Users') && (
+          <p className="title">Management</p>
+           {allowedRoutes.includes('Users') && (
             <Link to="/users" style={{ textDecoration: "none" }}>
               <li>
                 <PersonOutlineIcon className="icon" />
                 <span >Users</span>
               </li>
             </Link>
-          )} 
+           )} 
           {allowedRoutes.includes('EventAdmin') && (
             <Link to="/campaigns" style={{ textDecoration: "none" }}>
               <li>
