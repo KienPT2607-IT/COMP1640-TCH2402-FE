@@ -7,15 +7,25 @@ import contributionApi from "../../api/contributionApi";
 
 const Feed = ({ eventId }) => {
   const [contribution, setContribution] = useState([]);
-  const [toggleReloadContribution, setToggleReloadContribution] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1);
+  const contributionsPerPage = 5;
+  const [toggleReloadContribution, setToggleReloadContribution] = useState(false);
 
   const handleToggleReloadContribution = () => {
-    setToggleReloadContribution(!toggleReloadContribution)
-  }
+    setToggleReloadContribution(!toggleReloadContribution);
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
 
   useEffect(() => {
     const fetchContributions = async () => {
-      console.log('call api')
+      console.log('call api');
       try {
         const response = await contributionApi.getAll(eventId);
 
@@ -30,32 +40,44 @@ const Feed = ({ eventId }) => {
             contributorFullName: item.contributor.full_name,
             contributorProfilePicture: item.contributor.profile_picture,
             comment: 15
-          }
-        })
+          };
+        });
 
         console.log('mockdata', mockdata);
 
-        setContribution(mockdata)
+        setContribution(mockdata);
 
       } catch (error) {
-        console.log('Fail to fetch', error)
+        console.log('Fail to fetch', error);
       }
-    }
+    };
 
     fetchContributions();
   }, [eventId, toggleReloadContribution]);
+
+  const indexOfLastContribution = currentPage * contributionsPerPage;
+  const indexOfFirstContribution = indexOfLastContribution - contributionsPerPage;
+  const currentContributions = contribution.slice(indexOfFirstContribution, indexOfLastContribution);
 
   return (
     <div className="feed">
       <div className="feedWrapper">
         <Share eventId={eventId} handleToggleReloadContribution={handleToggleReloadContribution} />
-        {contribution.length > 0 && contribution.map((p) => (
+        {currentContributions.map((p) => (
           <Post handleToggleReloadContribution={handleToggleReloadContribution}
-           key={p.id} post={p} eventId={eventId} />
+            key={p.id} post={p} eventId={eventId} />
         ))}
+        <div className="pagination">
+          <button onClick={handlePrevPage} disabled={currentPage === 1}>
+            Trang trước
+          </button>
+          <button onClick={handleNextPage} disabled={currentContributions.length < contributionsPerPage}>
+            Trang tiếp theo
+          </button>
+        </div>
       </div>
     </div>
   );
 };
-export default Feed;
 
+export default Feed;

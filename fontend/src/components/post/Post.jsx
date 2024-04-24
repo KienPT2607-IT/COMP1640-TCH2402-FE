@@ -54,7 +54,7 @@ export default function Post({ post, eventId, handleToggleReloadContribution }) 
             </span>
           </div>
           <div className="postTopRight">
-          <span className="postDate">{formatDate(post.date)}</span>
+            <span className="postDate">{formatDate(post.date)}</span>
 
             <MoreVert />
           </div>
@@ -67,11 +67,11 @@ export default function Post({ post, eventId, handleToggleReloadContribution }) 
             <div>
               <h4>Uploads:</h4>
               <ul>
-                {post.uploads.map((uploads, index) => (
+                {post.uploads.map((upload, index) => (
                   <li key={index}>
                     {/* Liên kết tải xuống */}
-                    <a href={uploads} download>
-                      {uploads}
+                    <a href={upload} download target="_blank" rel="noopener noreferrer">
+                      {upload}
                     </a>
                   </li>
                 ))}
@@ -80,21 +80,21 @@ export default function Post({ post, eventId, handleToggleReloadContribution }) 
           )}
         </div>
         <div className="postBottom">
-        <div className="postBottomLeft">
-  <ThumbUpIcon 
-    className="likeIcon"
-    onClick={likeHandler}
-    color="primary" // Change color to primary to indicate active state
-  />
-  <span className="postLikeCounter">{post.like}</span>
+          <div className="postBottomLeft">
+            <ThumbUpIcon
+              className="likeIcon"
+              onClick={likeHandler}
+              color="primary" // Change color to primary to indicate active state
+            />
+            <span className="postLikeCounter">{post.like}</span>
 
-  <ThumbDownIcon 
-    className="likeIcon"
-    onClick={dislikeHandler}
-    color="secondary" // Change color to secondary to indicate active state
-  />
-  <span className="postLikeCounter">{post.dislike}</span>
-</div>
+            <ThumbDownIcon
+              className="likeIcon"
+              onClick={dislikeHandler}
+              color="secondary" // Change color to secondary to indicate active state
+            />
+            <span className="postLikeCounter">{post.dislike}</span>
+          </div>
           <div className="postBottomRight">
             <span className="postCommentText" onClick={() => setCommentOpen(!commentOpen)}>{post.comment} comments</span>
           </div>
