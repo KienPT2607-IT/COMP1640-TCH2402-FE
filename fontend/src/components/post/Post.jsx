@@ -46,7 +46,7 @@ export default function Post({ post, eventId, handleToggleReloadContribution }) 
           <div className="postTopLeft">
             <img
               className="postProfileImg"
-              src={post.contributorProfilePicture}
+              src={"https://images.rawpixel.com/image_png_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjkzNy1hZXctMTY1LnBuZw.png"}
               alt=""
             />
             <span className="postUsername">
