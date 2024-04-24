@@ -22,7 +22,12 @@ const TableCampaign = () => {
     }
     fetchEvents();
   }, []);
-
+  const formatDateTime = (dateTimeString) => {
+    const dateTime = new Date(dateTimeString);
+    const formattedDate = `${dateTime.getDate()}/${dateTime.getMonth() + 1}/${dateTime.getFullYear()}`;
+    const formattedTime = `${dateTime.getHours()}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}`;
+    return `${formattedDate} ${formattedTime}`;
+  };
   return (
     <div className="datatable-container">
       <h1>Event Data</h1>
@@ -43,19 +48,23 @@ const TableCampaign = () => {
             <th>Last Update</th>
             <th>Create By</th>
             <th>Description</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {events.map(event => (
             <tr key={event._id}>
               <td>{event.name}</td>
-              <td>{event.create_date}</td>
-              <td>{event.due_date}</td>
-              <td>{event.closure_date}</td>
+              <td>{formatDateTime(event.create_date)}</td>
+              <td>{formatDateTime(event.due_date)}</td>
+              <td>{formatDateTime(event.closure_date)}</td>
               <td>{event.is_enable.toString()}</td>
-              <td>{event.last_update}</td>
+              <td>{formatDateTime(event.last_update)}</td>
               <td>{event.create_by.full_name}</td>
               <td>{event.description}</td>
+              <button className="edit-button" onClick={() => handleEdit(user._id)}>
+                    Edit
+                  </button>
             </tr>
           ))}
         </tbody>

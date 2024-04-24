@@ -189,7 +189,7 @@ const New = ({ }) => {
                 // You can customize the date format according to your needs
                 />
               </div>
-              <input type="submit" value="Submit" />
+              <input className="button_submit" type="submit" value="Submit" />
             </form>
           </div>
         </div>

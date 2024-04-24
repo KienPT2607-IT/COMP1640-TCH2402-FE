@@ -2,7 +2,6 @@ import Post from "../post/Post";
 import "./feed.css";
 import Share from "../share/Share";
 
-import { Posts } from "../../dummyData";
 import { useEffect, useState } from "react";
 import contributionApi from "../../api/contributionApi";
 
@@ -51,7 +50,8 @@ const Feed = ({ eventId }) => {
       <div className="feedWrapper">
         <Share eventId={eventId} handleToggleReloadContribution={handleToggleReloadContribution} />
         {contribution.length > 0 && contribution.map((p) => (
-          <Post handleToggleReloadContribution={handleToggleReloadContribution} key={p.id} post={p} eventId={eventId} />
+          <Post handleToggleReloadContribution={handleToggleReloadContribution}
+           key={p.id} post={p} eventId={eventId} />
         ))}
       </div>
     </div>

@@ -19,6 +19,11 @@ function Datatable() {
     }
     fetchUsers();
   }, []);
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    return formattedDate;
+  };
 
   return (
     <div className="datatable-container">
@@ -42,7 +47,8 @@ function Datatable() {
             <th>Account Status</th>
             <th>Faculty</th>
             <th>Role</th>
-
+            <th>Status</th>
+              <th>Action</th> 
           </tr>
         </thead>
         <tbody>
@@ -50,14 +56,32 @@ function Datatable() {
             <tr key={user._id}>
               <td>{user.full_name}</td>
               <td>{user.email}</td>
-              <td>{user.dob}</td>
+              <td>{formatDate(user.dob)}</td>
               <td>{user.phone_number}</td>
               <td>{user.gender ? 'Male' : 'Female'}</td>
               <td><img style={{width: '50px'}} alt='' src={user.profile_picture }></img></td>
-              <td>{user.registration_date}</td>
+              <td>{formatDate(user.registration_date)}</td>
               <td>{user.account_status ? 'Active' : 'Inactive'}</td>
               <td>{user.faculty}</td>
               <td>{user.role}</td>
+              <td>
+                <select 
+                    value={user.account_status ? 'Active' : 'Inactive'} 
+                    onChange={(e) => {
+                      console.log('Selected value:', e.target.value);
+                      handleStatusChange(user._id, e.target.value === 'Active');
+                    }}
+                    style={{ color: user.account_status ? 'green' : 'red' }}
+                  >
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                  </select>
+                </td>
+                <td>
+                  <button className="edit-button" onClick={() => handleEdit(user._id)}>
+                    Edit
+                  </button>
+                </td>
             </tr>
           ))}
         </tbody>

@@ -1,96 +1,166 @@
-.postt {
+.post {
   width: 100%;
-  border-radius: 10px;
-  -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
-  box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
-  margin: 30px 0;
+  margin-bottom: 30px;
+  border-radius: 20px;
+  background-color: #ffffff;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
 }
 
-.posttWrapper {
-  display: flex;
-  flex-direction: column;
+.post:hover {
+  transform: translateY(-5px);
 }
 
-.posttTop {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.postWrapper {
+  padding: 25px;
 }
-
-.posttTopLeft {
-  display: flex;
-  flex-direction: column;
-  /* Display the content vertically */
-}
-
-.posttProfileImg {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.posttUsername {
-  font-size: 20px;
-  font-weight: bold;
-  font-style: italic;
-  margin: 0 10px;
-}
-
-.posttDate {
-  font-size: 20px;
-
-}
-
-.posttCenter {
-  margin-top: 10px;
-  /* Adjust margin as needed */
-}
-
-
-.posttBottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.posttBottomLeft {
-  display: flex;
-  align-items: center;
-}
-
 .postTopRight {
-  margin-left: auto;
   cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
-.btnPostt {
-  background-color: brown;
-  /* Set button background color */
-  color: white;
-  /* Set button text color */
-  border: none;
-  /* Remove button border */
-  padding: 10px 20px;
-  /* Add padding to the button */
-  border-radius: 5px;
-  /* Add border-radius for rounded corners */
+.postTopRight:hover {
+  transform: rotate(90deg) scale(1.1);
+}
+.postTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.postTopLeft {
+  display: flex;
+  align-items: center;
+}
+
+/* Username text view */
+.postUsername {
+  font-size: 25px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+/* Due date text view */
+.postDueDate {
+  font-size: 16px;
+  color: #28a745; 
+  margin-top: 5px;
+  display: block; /* Make it block-level */
+}
+
+/* Closure date text view */
+.postDate {
+  font-size: 16px;
+  color: #dc3545; /* Red color */
+  margin-top: 12px;
+  display: block; /* Make it block-level */
+}
+
+/* Due date textbox */
+.postDueDate > input {
+  border: 1px solid #28a745; /* Green border */
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 16px;
   width: 100%;
-  /* Make the button full-width */
   margin-top: 10px;
-  /* Add margin to the top */
+  display: block; /* Make it block-level */
 }
 
-
-.margin-right-s {
-  margin-right: 3px;
+/* Closure date textbox */
+.postDate > input {
+  border: 1px solid #dc3545; /* Red border */
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 10px;
+  display: block; /* Make it block-level */
 }
 
-.padding-s {
-  padding: 3px;
+/* Description text view */
+.postText {
+  font-size: 17px;
+  color: #555;
+  margin-top: 20px;
 }
 
+/* Name textbox */
+.postTopLeft > input {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 10px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.postTopLeft > input:focus {
+  border-color: #007bff;
+}
+
+/* Description textbox */
 .input-description {
-  width: 90%;
-  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 12px; 
+  font-size: 16px;
+  width: 50%;
+  margin-top: 10px;
+}
+
+/* Button styles */
+
+/* Cancel button */
+.cancelButton {
+  background-color: #dc3545; /* Red */
+}
+
+.cancelButton:hover {
+  background-color: #c82333; /* Darker red */
+}
+
+/* Edit button */
+.editButton {
+  background-color: #ffc107; /* Yellow */
+}
+
+.editButton:hover {
+  background-color: #e0a800; /* Darker yellow */
+}
+
+/* Detail button */
+.detailButton {
+  background-color: #007bff; /* Blue */
+}
+
+.detailButton:hover {
+  background-color: #0056b3; /* Darker blue */
+}
+
+/* Save button */
+.saveButton {
+  background-color: #28a745; /* Green */
+}
+
+.saveButton:hover {
+  background-color: #218838; /* Darker green */
+}
+
+/* Common styles for all buttons */
+.cancelButton,
+.editButton,
+.detailButton,
+.saveButton {
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease-in-out;
 }

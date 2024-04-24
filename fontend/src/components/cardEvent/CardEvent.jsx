@@ -80,14 +80,14 @@ export default function CardEvent({ event, handleReload }) {
                 <span className="postUsername">
                   {event.name}
                 </span> :
-                <input value={name} onChange={(e) => setName(e.target.value)} className="margin-right-s padding-s" placeholder="Tên event"></input>
+                <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Tên event"></input>
             }
 
           </div>
           <div>
             {
               !isEdit ?
-                <span className="postDate margin-right-s">Due date: {convertDateFormat(event.due_date)}</span> :
+                <span className="postDueDate">Due date: {convertDateFormat(event.due_date)}</span> :
                 <>
                   <label htmlFor="dudate">Due date:</label>
                   <input onChange={(e) => {
@@ -108,9 +108,9 @@ export default function CardEvent({ event, handleReload }) {
                 </>
             }
             {
-              isEdit && <Button onClick={() => {
+              isEdit && <Button className="cancelButton" onClick={() => {
                 setIsEdit(!isEdit)
-              }}>Hủy</Button>
+              }}>Cancel</Button>
             }
 
           </div>
@@ -128,9 +128,9 @@ export default function CardEvent({ event, handleReload }) {
                 horizontal: 'left',
               }}
             >
-              <Button onClick={() => {
+              <Button className="editButton" onClick={() => {
                 setIsEdit(!isEdit)
-              }}>Sửa</Button>
+              }}>Edit</Button>
             </Popover>
           </div>
         </div>
@@ -144,17 +144,17 @@ export default function CardEvent({ event, handleReload }) {
 
         {
           !isEdit ? <form>
-            <Link
+            <Link 
               to={{
                 pathname: "/contribution"
               }}
               state={{ eventId: event._id }}
-              className="editButton"
+              className="detailButton"
             >
               Detail
             </Link>
           </form> :
-            <Button onClick={handleUpdate}>Lưu</Button>
+            <Button className="saveButton" onClick={handleUpdate}>Save</Button>
         }
 
 

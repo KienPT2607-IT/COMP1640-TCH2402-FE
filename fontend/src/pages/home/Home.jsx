@@ -24,14 +24,14 @@ const Home = () => {
       <Sidebar />
       <div className="homeContainer">
         <Navbar />
-        <div className="widgets">
+        {/* <div className="widgets">
           <Widget type="user" amount={data.user_count} />
-        </div>
+        </div> */}
         {/* <div className="charts">
           <Featured />
           <Chart title="Last 6 Months (Revenue)" aspect={2 / 1} />
         </div> */}
-        <div className="card margin-bottom-m">
+        <div className="card_1">
           <h3>Top contribution có lượt like cao nhất</h3>
           <div>
             <table>
@@ -56,7 +56,7 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="card margin-bottom-m">
+        <div className="card_2">
           <h3>Top contribution có lượt dislike cao nhất</h3>
           <div>
             <table>
@@ -82,7 +82,7 @@ const Home = () => {
         </div>
 
 
-        <div className="card">
+        <div className="card_3">
           <h3>Xếp hạng event</h3>
           <div>
             <table>
