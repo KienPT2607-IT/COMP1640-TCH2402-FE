@@ -2,34 +2,41 @@ import "./newEvent.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { useState } from "react";
-import eventApi from "../../api/eventApi"
+import eventApi from "../../api/eventApi";
 import DateTime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import toast, { Toaster } from 'react-hot-toast';
+import Select from "react-select";
 
-
-const NewEvent = ({ }) => {
-  const showToastMessageSuccess = (mesage) => {
-    toast.success(mesage, {
+const NewEvent = () => {
+  const showToastMessageSuccess = (message) => {
+    toast.success(message, {
       position: "top-right",
       reverseOrder: true,
       duration: 6000,
     });
   };
 
-  const showToastMessagFail = (mesage) => {
-    toast.error(mesage, {
+  const showToastMessageFail = (message) => {
+    toast.error(message, {
       position: "top-right",
       reverseOrder: true,
       duration: 6000,
     });
   };
+
+  const facultyOptions = [
+    { value: "Graphic and Digital Design", label: "Graphic and Digital Design" },
+    { value: "IT", label: "IT" },
+    { value: "Business Manager", label: "Business Manager" }
+  ];
+
   const [name, setName] = useState('');
   const [create_date, setCreateDate] = useState(new Date());
-  const [due_date, setDueDate] = useState('');
-  const [closure_date, setClosureDate] = useState('');
+  const [due_date, setDueDate] = useState(null);
+  const [closure_date, setClosureDate] = useState(null);
   const [description, setDescription] = useState('');
-
+  const [faculty, setFaculty] = useState(facultyOptions[0].value);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -45,16 +52,22 @@ const NewEvent = ({ }) => {
     }
   };
 
+  const facultyChangeHandler = (selection) => {
+    setFaculty(selection.value);
+    console.log("User Selected Value - ", selection.value);
+  };
+
   const handleDateTimeChange = (name, newDateTime) => {
+    const formattedDate = newDateTime.format('YYYY-MM-DDTHH:mm:ss');
     switch (name) {
       case 'create_date':
-        setCreateDate(newDateTime);
+        setCreateDate(formattedDate);
         break;
       case 'due_date':
-        setDueDate(newDateTime);
+        setDueDate(formattedDate);
         break;
       case 'closure_date':
-        setClosureDate(newDateTime);
+        setClosureDate(formattedDate);
         break;
       default:
         break;
@@ -63,31 +76,34 @@ const NewEvent = ({ }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (due_date <= create_date) {
-      showToastMessagFail("Due Date must be after Create Date");
+
+    if (!due_date || due_date <= create_date) {
+      showToastMessageFail("Due Date must be after Create Date");
       return;
     }
 
-    if (closure_date <= due_date) {
-      showToastMessagFail("Closure Date must be after Due Date");
+    if (!closure_date || closure_date <= due_date) {
+      showToastMessageFail("Closure Date must be after Due Date");
       return;
     }
+
     try {
-      let data = {
-        "name": name,
-        "create_date": create_date,
-        "due_date": due_date,
-        "closure_date": closure_date,
-        "description": description,
-      }
-      const response = await eventApi.create(data);
-      console.log(response);
+      const eventData = {
+        name,
+        create_date,
+        due_date,
+        closure_date,
+        description,
+        faculty,
+      };
+
+      const response = await eventApi.create(eventData);
       showToastMessageSuccess(response.message);
     } catch (error) {
-      console.log('Fail to fetch', error)
-      showToastMessagFail(error.message);
+      console.log('Failed to fetch', error);
+      showToastMessageFail(error.message);
     }
-  }
+  };
 
   return (
     <div className="new">
@@ -148,6 +164,15 @@ const NewEvent = ({ }) => {
                   value={description}
                   onChange={handleInputChange}
                   required
+                />
+              </div>
+              <div className="formInput">
+                <label htmlFor="faculty">Faculty:</label>
+                <Select 
+                  name="faculty" 
+                  value={{ value: faculty, label: faculty }} 
+                  options={facultyOptions}
+                  onChange={facultyChangeHandler}
                 />
               </div>
               <button type="submit">Save</button>
