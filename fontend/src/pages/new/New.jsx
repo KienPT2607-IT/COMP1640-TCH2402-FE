@@ -43,9 +43,6 @@ const New = ({ }) => {
     { value: true, label: "Male" },
     { value: false, label: "Female" }
   ];
-
-
-  const [picture_profile, setFile] = useState("");
   const [selectedUser, setSelectedUser] = useState([]);
 
   const [email, setEmail] = useState('');
@@ -189,7 +186,7 @@ const New = ({ }) => {
                 // You can customize the date format according to your needs
                 />
               </div>
-              <input className="button_submit" type="submit" value="Submit" />
+              <input type="submit" value="Submit" />
             </form>
           </div>
         </div>

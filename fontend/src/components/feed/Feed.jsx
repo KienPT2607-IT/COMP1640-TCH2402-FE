@@ -7,19 +7,23 @@ import contributionApi from "../../api/contributionApi";
 
 const Feed = ({ eventId }) => {
   const [contribution, setContribution] = useState([]);
-  const [toggleReloadContribution, setToggleReloadContribution] = useState(false)
+  const [toggleReloadContribution, setToggleReloadContribution] = useState(false);
+  const [limit, setLimit] = useState(5); // Giới hạn số lượng contribution
+  const [showAll, setShowAll] = useState(false); // Để xem tất cả contribution
 
   const handleToggleReloadContribution = () => {
-    setToggleReloadContribution(!toggleReloadContribution)
-  }
+    setToggleReloadContribution(!toggleReloadContribution);
+  };
 
   useEffect(() => {
     const fetchContributions = async () => {
-      console.log('call api')
       try {
-        const response = await contributionApi.getAll(eventId);
+        const params = {
+          _limit: limit,
+        };
+        const response = await contributionApi.getAll(eventId, params);
 
-        const mockdata = response.data.map(item => {
+        const mockdata = response.data.map((item) => {
           return {
             id: item._id,
             desc: item.content,
@@ -29,21 +33,24 @@ const Feed = ({ eventId }) => {
             dislike: item.dislike_count,
             contributorFullName: item.contributor.full_name,
             contributorProfilePicture: item.contributor.profile_picture,
-            comment: 15
-          }
-        })
+          };
+        });
 
-        console.log('mockdata', mockdata);
+        console.log("mockdata", mockdata);
 
-        setContribution(mockdata)
-
+        setContribution(mockdata);
       } catch (error) {
-        console.log('Fail to fetch', error)
+        console.log("Fail to fetch", error);
       }
-    }
+    };
 
     fetchContributions();
-  }, [eventId, toggleReloadContribution]);
+  }, [eventId, toggleReloadContribution, limit]);
+
+  const handleShowAll = () => {
+    setShowAll(!showAll);
+    setLimit(showAll ? 5 : contribution.length); // Hiển thị tất cả hoặc giới hạn 5 phần tử
+  };
 
   return (
     <div className="feed">
@@ -53,9 +60,14 @@ const Feed = ({ eventId }) => {
           <Post handleToggleReloadContribution={handleToggleReloadContribution}
            key={p.id} post={p} eventId={eventId} />
         ))}
+        {!showAll && contribution.length > 5 && (
+          <button onClick={handleShowAll} className="showMoreBtn">
+            Xem thêm
+          </button>
+        )}
       </div>
     </div>
   );
 };
-export default Feed;
 
+export default Feed;

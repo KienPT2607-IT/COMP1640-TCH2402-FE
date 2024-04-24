@@ -32,7 +32,6 @@ const NewEvent = () => {
   ];
 
   const [name, setName] = useState('');
-  const [create_date, setCreateDate] = useState(new Date());
   const [due_date, setDueDate] = useState(null);
   const [closure_date, setClosureDate] = useState(null);
   const [description, setDescription] = useState('');
@@ -60,9 +59,6 @@ const NewEvent = () => {
   const handleDateTimeChange = (name, newDateTime) => {
     const formattedDate = newDateTime.format('YYYY-MM-DDTHH:mm:ss');
     switch (name) {
-      case 'create_date':
-        setCreateDate(formattedDate);
-        break;
       case 'due_date':
         setDueDate(formattedDate);
         break;
@@ -77,11 +73,6 @@ const NewEvent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!due_date || due_date <= create_date) {
-      showToastMessageFail("Due Date must be after Create Date");
-      return;
-    }
-
     if (!closure_date || closure_date <= due_date) {
       showToastMessageFail("Closure Date must be after Due Date");
       return;
@@ -90,7 +81,6 @@ const NewEvent = () => {
     try {
       const eventData = {
         name,
-        create_date,
         due_date,
         closure_date,
         description,
@@ -98,6 +88,7 @@ const NewEvent = () => {
       };
 
       const response = await eventApi.create(eventData);
+      console.log("response", response);
       showToastMessageSuccess(response.message);
     } catch (error) {
       console.log('Failed to fetch', error);
@@ -125,15 +116,6 @@ const NewEvent = () => {
                   name="name"
                   value={name}
                   onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className="formInput">
-                <label htmlFor="create_date">Create Date:</label>
-                <DateTime
-                  id="create_date"
-                  value={create_date}
-                  onChange={(newDateTime) => handleDateTimeChange('create_date', newDateTime)}
                   required
                 />
               </div>
@@ -173,6 +155,7 @@ const NewEvent = () => {
                   value={{ value: faculty, label: faculty }} 
                   options={facultyOptions}
                   onChange={facultyChangeHandler}
+                  required
                 />
               </div>
               <button type="submit">Save</button>
