@@ -1,12 +1,9 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
 import "./cardEvent.css";
 import { MoreVert } from "@material-ui/icons";
-import Typography from '@mui/material/Typography';
-
 import Popover from '@mui/material/Popover';
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
-import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import { useState } from "react";
 import eventApi from "../../api/eventApi";

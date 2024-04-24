@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './datatable.css';
-import { Link } from 'react-router-dom'; // Thêm thư viện Link từ react-router-dom
+import { Link } from 'react-router-dom'; 
 import userApi from '../../api/userApi';
 
 function Datatable() {

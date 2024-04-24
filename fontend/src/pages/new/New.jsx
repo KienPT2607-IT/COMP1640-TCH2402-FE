@@ -1,11 +1,9 @@
 import "./new.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { FaGenderless } from "react-icons/fa6";
 import userApi from "../../api/userApi";
 import Select from "react-select";
 import toast, { Toaster } from 'react-hot-toast';

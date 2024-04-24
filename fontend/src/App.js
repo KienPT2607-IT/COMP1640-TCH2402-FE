@@ -1,6 +1,5 @@
 import Home from "./pages/home/Home";
 import LoginForm from "./pages/LoginForm/LoginForm";
-import ChangePassWord from "./pages/ChangePassWord/ChangePassword";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import List from "./pages/list/List";
 import Contribution from "./pages/contribution/Contribution";
@@ -27,7 +26,6 @@ function App() {
             <Route index element={<Home />} />
             <Route path="login" element={<LoginForm />} />
             <Route path="forgotPassword" element={<ForgotPassword />} />
-            <Route path="changepassword" element={<ChangePassWord />} />
             <Route path="contribution">
             <Route index element={<Contribution />} />
               

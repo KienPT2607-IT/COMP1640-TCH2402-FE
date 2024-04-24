@@ -4,36 +4,34 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import EventIcon from '@mui/icons-material/Event';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import CampaignIcon from '@mui/icons-material/Campaign';
-
 
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 
-// const checkRole = (role) => {
-//   switch (role) {
-//       case 'Admin':
-//           return ['Users', 'EventAdmin'];
-//       case 'Student':
-//           return ['Event'];
-//       case 'Guest':
-//           return ['Event'];
-//       case 'Marketing Coordinator':
-//           return ['Event'];
-//       case 'Marketing Manager':
-//           return ['Event'];
-//       default:
-//           return [];
-//   }
-// }
+const checkRole = (role) => {
+  switch (role) {
+      case 'Admin':
+          return ['Users', 'EventAdmin'];
+      case 'Student':
+          return ['Event'];
+      case 'Guest':
+          return ['Event'];
+      case 'Marketing Coordinator':
+          return ['Event'];
+      case 'Marketing Manager':
+          return ['Event'];
+      default:
+          return [];
+  }
+}
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
-  // const userData = JSON.parse(sessionStorage.getItem('user'));
-  // const userRole = userData ? userData.role : '';
+  const userData = JSON.parse(sessionStorage.getItem('user'));
+  const userRole = userData ? userData.role : '';
 
-  // const allowedRoutes = checkRole(userRole);
+  const allowedRoutes = checkRole(userRole);
   const handleLogout = () => {
     // Remove token from local storage
     sessionStorage.removeItem("x-auth-token");
@@ -48,40 +46,38 @@ const Sidebar = () => {
       <hr />
       <div className="center">
         <ul>
-          <p className="title">MAIN</p>
-          {/* {allowedRoutes.includes('Dashboard') && ( */}
+          {allowedRoutes.includes('Dashboard') && (
             <Link to="/" style={{ textDecoration: "none" }}>
               <li>
                 <DashboardIcon className="icon" />
                 <span>Dashboard</span>
               </li>
             </Link>
-          {/* )} */}
-          {/* {allowedRoutes.includes('Event') && ( */}
+           )} 
+          {allowedRoutes.includes('Event') && (
             <Link to="/event" style={{ textDecoration: "none" }}>
               <li>
                 <EventIcon className="icon" />
                 <span>Event</span>
               </li>
             </Link>
-          {/* )} */}
-          <p className="title">Management</p>
-          {/* {allowedRoutes.includes('Users') && ( */}
+           )} 
+          {allowedRoutes.includes('Users') && (
             <Link to="/users" style={{ textDecoration: "none" }}>
               <li>
                 <PersonOutlineIcon className="icon" />
                 <span >Users</span>
               </li>
             </Link>
-          {/* )} */}
-          {/* {allowedRoutes.includes('EventAdmin') && ( */}
+          )} 
+          {allowedRoutes.includes('EventAdmin') && (
             <Link to="/campaigns" style={{ textDecoration: "none" }}>
               <li>
                 <NewspaperIcon className="icon" />
                 <span>Event Admin</span>
               </li>
             </Link>
-          {/* )} */}
+           )} 
           <p className="title">USER</p>
             <Link to="/profile" style={{ textDecoration: "none" }}>
               <li>

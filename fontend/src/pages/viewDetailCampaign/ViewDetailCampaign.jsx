@@ -3,7 +3,6 @@ import "./viewDetailCampaign.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { useParams } from "react-router-dom";
-import { campaignRows } from "../../dataCampaign";
 
 const ViewDetailCampaign = () => {
   const { campaignId } = useParams();

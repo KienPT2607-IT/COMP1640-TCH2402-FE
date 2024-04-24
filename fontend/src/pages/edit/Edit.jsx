@@ -5,7 +5,6 @@ import Navbar from "../../components/navbar/Navbar";
 import { useParams } from "react-router-dom";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import axios from 'axios';
-import { Link } from "react-router-dom";
 
 const Edit = () => {
   const [userProfile, setUserProfile] = useState({});

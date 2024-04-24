@@ -1,7 +1,5 @@
 import Post from "../post/Post";
 import "./listEvent.css";
-import Share from "../share/Share";
-import { campaignRows } from "../../dataCampaign";
 import CardEvent from "../cardEvent/CardEvent";
 import { useEffect, useState } from "react";
 import eventApi from '../../api/eventApi';

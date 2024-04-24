@@ -1,11 +1,9 @@
 import "./tableCampaign.css";
-import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import eventApi from '../../api/eventApi'
 import React from "react";
-import { MoreVert } from "@material-ui/icons";
 
 const TableCampaign = () => {
   const [events, setEvents] = useState([]);
