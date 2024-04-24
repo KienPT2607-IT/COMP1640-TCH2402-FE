@@ -42,8 +42,6 @@ function Datatable() {
             <th>Date of Birth</th>
             <th>Phone Number</th>
             <th>Gender</th>
-            <th>Profile Picture</th>
-            <th>Registration Date</th>
             <th>Account Status</th>
             <th>Faculty</th>
             <th>Role</th>
@@ -59,8 +57,6 @@ function Datatable() {
               <td>{formatDate(user.dob)}</td>
               <td>{user.phone_number}</td>
               <td>{user.gender ? 'Male' : 'Female'}</td>
-              <td><img style={{width: '50px'}} alt='' src={user.profile_picture }></img></td>
-              <td>{formatDate(user.registration_date)}</td>
               <td>{user.account_status ? 'Active' : 'Inactive'}</td>
               <td>{user.faculty}</td>
               <td>{user.role}</td>

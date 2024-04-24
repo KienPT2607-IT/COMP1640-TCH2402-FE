@@ -11,18 +11,18 @@ import { useContext } from "react";
 
 const checkRole = (role) => {
   switch (role) {
-      case 'Admin':
-          return ['Users', 'EventAdmin'];
-      case 'Student':
-          return ['Event'];
-      case 'Guest':
-          return ['Event'];
-      case 'Marketing Coordinator':
-          return ['Event'];
-      case 'Marketing Manager':
-          return ['Event'];
-      default:
-          return [];
+    case 'Admin':
+      return ['Users', 'EventAdmin', 'Profile', 'Logout'];
+    case 'Student':
+      return ['Event', 'Profile', 'Logout'];
+    case 'Guest':
+      return ['Dashboard'];
+    case 'Marketing Coordinator':
+      return ['Event', 'Profile', 'Logout'];
+    case 'Marketing Manager':
+      return ['Event', 'Dashboard', 'Profile', 'Logout'];
+    default:
+      return [];
   }
 }
 
@@ -32,10 +32,12 @@ const Sidebar = () => {
   const userRole = userData ? userData.role : '';
 
   const allowedRoutes = checkRole(userRole);
+
   const handleLogout = () => {
     // Remove token from local storage
     sessionStorage.removeItem("x-auth-token");
   };
+
   return (
     <div className="sidebar">
       <div className="top">
@@ -54,7 +56,7 @@ const Sidebar = () => {
                 <span>Dashboard</span>
               </li>
             </Link>
-           )} 
+          )}
           {allowedRoutes.includes('Event') && (
             <Link to="/event" style={{ textDecoration: "none" }}>
               <li>
@@ -62,16 +64,16 @@ const Sidebar = () => {
                 <span>Event</span>
               </li>
             </Link>
-           )} 
+          )}
           <p className="title">Management</p>
-           {allowedRoutes.includes('Users') && (
+          {allowedRoutes.includes('Users') && (
             <Link to="/users" style={{ textDecoration: "none" }}>
               <li>
                 <PersonOutlineIcon className="icon" />
-                <span >Users</span>
+                <span>Users</span>
               </li>
             </Link>
-           )} 
+          )}
           {allowedRoutes.includes('EventAdmin') && (
             <Link to="/campaigns" style={{ textDecoration: "none" }}>
               <li>
@@ -79,20 +81,21 @@ const Sidebar = () => {
                 <span>Event Admin</span>
               </li>
             </Link>
-           )} 
+          )}
           <p className="title">USER</p>
+          {allowedRoutes.includes('Profile') && (
             <Link to="/profile" style={{ textDecoration: "none" }}>
               <li>
                 <PersonOutlineIcon className="icon" />
                 <span>Profile</span>
               </li>
             </Link>
-          
+          )}
           <Link to="/login" style={{ textDecoration: "none" }}>
-          <li onClick={handleLogout} style={{cursor: "pointer"}}>
-            <ExitToAppIcon className="icon" />
-            <span>Logout</span>
-          </li>
+            <li onClick={handleLogout} style={{ cursor: "pointer" }}>
+              <ExitToAppIcon className="icon" />
+              <span>Logout</span>
+            </li>
           </Link>
         </ul>
       </div>
@@ -111,3 +114,4 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
