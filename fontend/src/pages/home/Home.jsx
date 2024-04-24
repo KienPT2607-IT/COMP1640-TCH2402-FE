@@ -1,9 +1,6 @@
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import "./home.css";
-import Widget from "../../components/widget/Widget";
-import Featured from "../../components/featured/Featured";
-import Chart from "../../components/chart/Chart";
 import reportApi from '../../api/report'
 import { useEffect, useState } from "react";
 const Home = () => {
@@ -24,13 +21,6 @@ const Home = () => {
       <Sidebar />
       <div className="homeContainer">
         <Navbar />
-        {/* <div className="widgets">
-          <Widget type="user" amount={data.user_count} />
-        </div> */}
-        {/* <div className="charts">
-          <Featured />
-          <Chart title="Last 6 Months (Revenue)" aspect={2 / 1} />
-        </div> */}
         <div className="card_1">
           <h3>Top contribution có lượt like cao nhất</h3>
           <div>
