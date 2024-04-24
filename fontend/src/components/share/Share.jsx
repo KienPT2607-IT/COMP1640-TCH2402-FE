@@ -35,7 +35,6 @@ export default function Share({ eventId, handleToggleReloadContribution }) {
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <img className="shareProfileImg" src="https://imgs.vietnamnet.vn/Images/2011/08/23/10/20110823104022_avatar09.jpg" alt="" />
           <input
             placeholder="Content"
             className="shareInput"

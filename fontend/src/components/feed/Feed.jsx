@@ -39,7 +39,6 @@ const Feed = ({ eventId }) => {
             dislike: item.dislike_count,
             contributorFullName: item.contributor.full_name,
             contributorProfilePicture: item.contributor.profile_picture,
-            comment: 15
           };
         });
 
